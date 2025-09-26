@@ -1,0 +1,25 @@
+/* Wrapper for centered images content */
+.listItemCenteredImages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.listItemCenteredImages.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.listItemCenteredImages img {
+  max-width: 200px; /* adjust as needed */
+  border-radius: 8px;
+}
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+

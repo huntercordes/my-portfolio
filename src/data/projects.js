@@ -1,30 +1,88 @@
+import persona from "../assets/persona.png";
+
 export const naturHistoriskPhases = [
   {
     id: "discover",
     title: "Discover",
-    tasks: ["Desk Research", "Field Research"],
-    description: "We gathered insights through desk and field research...",
-    images: ["/images/discover1.png", "/images/discover2.png"],
+    items: [
+      {
+        text: "Desk Research",
+        type: "textImage",
+        content: {
+          text: "We gathered insights through desk research...",
+          images: [persona, persona],
+        },
+      },
+      {
+        text: "Field Research",
+        type: "centeredImage",
+        content: {
+          images: [persona],
+        },
+      },
+    ],
   },
   {
     id: "define",
     title: "Define",
-    tasks: ["Empathy Map", "User Persona"],
-    description: "We defined the problem using empathy maps and personas...",
-    images: ["/images/define.png"],
+    items: [
+      {
+        text: "Empathy Map",
+        type: "textImage",
+        content: {
+          text: "We defined the problem using empathy maps...",
+          images: [persona],
+        },
+      },
+      {
+        text: "User Persona",
+        type: "centeredImage",
+        content: {
+          images: [persona],
+        },
+      },
+    ],
   },
   {
     id: "develop",
     title: "Develop",
-    tasks: ["Wireframes", "User Testing"],
-    description: "We developed prototypes and iterated through testing...",
-    images: ["/images/develop.png"],
+    items: [
+      {
+        text: "Wireframes",
+        type: "textImage",
+        content: {
+          text: "We developed low- and mid-fidelity wireframes...",
+          images: [persona],
+        },
+      },
+      {
+        text: "User Testing",
+        type: "centeredImage",
+        content: {
+          images: [persona],
+        },
+      },
+    ],
   },
   {
     id: "deliver",
     title: "Deliver",
-    tasks: ["Final Report", "High-fidelity Mockups"],
-    description: "We delivered the final solution with mockups and documentation...",
-    images: ["/images/deliver.png"],
+    items: [
+      {
+        text: "Final Report",
+        type: "textImage",
+        content: {
+          text: "We delivered the final solution and documentation...",
+          images: [persona],
+        },
+      },
+      {
+        text: "High-fidelity Mockups",
+        type: "centeredImage",
+        content: {
+          images: [persona],
+        },
+      },
+    ],
   },
 ];

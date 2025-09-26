@@ -1,0 +1,51 @@
+.dotWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.year {
+  margin-bottom: 0.7rem; /* stays above dot */
+  font-size: 0.9rem;
+  color: white;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  background: #ccc;
+  border-radius: 50%;
+  border: 2px solid white;
+  position: relative;
+  z-index: 2; /* above the line */
+  transform: translateY(-50%); /* shift center onto the line */
+  transition: background 0.3s ease;
+}
+
+.dotWrapper:hover .dot,
+.active .dot {
+  background: #0077cc;
+}
+
+.tooltip {
+  position: absolute;
+  top: calc(100% + 8px); /* below the dot */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 3;
+}
+
+.dotWrapper:hover .tooltip {
+  opacity: 1;
+}

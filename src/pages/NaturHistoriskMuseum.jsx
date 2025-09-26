@@ -1,37 +1,25 @@
-import { useState } from "react";
 import CaseStudyIntro from "../components/CaseStudyIntro/CaseStudyIntro";
-import DoubleDiamond from "../components/DoubleDiamond/DoubleDiamond";
-import styles from "../styles/NaturHistoriskMuseum.module.css";
+import RowOne from "../components/FeaturedProjects/RowOne";
+// import more rows as needed
 
 export default function NaturHistoriskMuseum() {
-  const [activePhase, setActivePhase] = useState(null);
-
-  const phases = [
-    { title: "Discover", items: ["Desk research", "Field research", "Interviews"] },
-    { title: "Define", items: ["Affinity mapping", "Problem framing"] },
-    { title: "Develop", items: ["Ideation workshops", "Prototyping"] },
-    { title: "Deliver", items: ["User testing", "Final implementation"] },
-  ];
-
-  function handlePhaseClick(idx) {
-    setActivePhase(idx);
-    // You can trigger your triangle expansion logic here if needed
-  }
-
   return (
     <div>
+      {/* Intro at top */}
       <CaseStudyIntro
         title="Strategic Design for Naturhistorisk Museum"
         subtitle="NHM - CASE STUDY"
-        description="This project was part of..."
+        description="This project was part of a UX design course where we focused on improving visitor experience."
         role="UX Designer"
         date="January - March 2024"
       />
 
-      <DoubleDiamond
-        phases={phases}
-        activePhase={activePhase}
-        onPhaseClick={handlePhaseClick}
+      {/* Row 1 */}
+      <RowOne
+        leftTitle="Research"
+        leftText="Conducted user interviews, observed visitor behavior, and gathered insights about museum navigation."
+        rightTitle="Competitive Analysis"
+        rightText="Analyzed other museums and exhibitions to understand best practices and identify opportunities."
       />
     </div>
   );

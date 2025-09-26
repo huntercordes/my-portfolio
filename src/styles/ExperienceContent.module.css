@@ -1,0 +1,11 @@
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%; /* make content span roughly 75% of page */
+  margin-left: 2rem; /* push content away from title */
+}
+
+.experienceItem {
+  width: 100%;
+}

@@ -1,0 +1,85 @@
+.item {
+  display: grid;
+  grid-template-columns: 80px 1fr 200px; /* Year | Content | Photo */
+  gap: 1.5rem;
+  background: rgba(20, 20, 20, 0.85);
+  border-left: 4px solid #74c8f8;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  color: #f5f5f5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Year column */
+.year {
+  display: flex;
+  align-items: flex-start;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #aaa;
+}
+
+/* Content column */
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  color: #74c8f8;
+}
+
+.bubbles {
+  margin-bottom: 1rem;
+}
+
+.bubble {
+  display: inline-block;
+  background: #111;
+  border: 1px solid #74c8f8;
+  border-radius: 16px;
+  padding: 0.3rem 0.9rem;
+  margin: 0 0.5rem 0.5rem 0;
+  font-size: 0.85rem;
+  color: #74c8f8;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.bubble:hover {
+  background: black;
+  color: white;
+}
+
+.description {
+  font-size: 1rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+/* Photo column */
+.photoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}

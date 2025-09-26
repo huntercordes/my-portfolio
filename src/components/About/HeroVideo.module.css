@@ -1,0 +1,32 @@
+.hero {
+  width: 100%;
+  height: 80vh; /* large hero feel */
+  overflow: hidden;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* makes it fill like a background */
+}
+.playPauseButton {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.playPauseButton:hover {
+  background: rgba(0, 0, 0, 0.8);
+}

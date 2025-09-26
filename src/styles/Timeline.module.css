@@ -1,0 +1,110 @@
+.timelineWrapper {
+  position: fixed;
+  top: 50%;
+  right: 4rem;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #daa803;
+  margin: 0.5rem 0;
+  position: relative;
+  left: 20%; /* aligns arrow with line */
+  transform: translateX(-50%);
+}
+
+.arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Container for dots + line */
+.dotsContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* years float right of dots */
+  padding-left: 10px; /* space so line sits behind dot */
+}
+
+/* Vertical timeline line */
+.line {
+  position: absolute;
+  top: 0;
+  left: 20%; /* center of dot */
+  width: 2px;
+  height: calc(100% - 2rem); /* stretch from first to last dot (adjust margin) */
+  background: #daa803;
+  z-index: 0;
+}
+
+/* Row for each dot + year */
+.dotRow {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0; /* space between dots */
+  z-index: 1; /* above line */
+}
+
+/* Dot styles */
+.dot {
+  width: 12px; /* your updated dot size */
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #daa803;
+  background: #444;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.dot:hover {
+  background: #daa803;
+  transform: scale(1.2);
+}
+
+.invisibleDot {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+}
+
+.activeDot {
+  background: #daa803;
+}
+
+/* Year text */
+.year {
+  margin-left: 1rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  left: -220px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.dot:hover .tooltip {
+  opacity: 1;
+}

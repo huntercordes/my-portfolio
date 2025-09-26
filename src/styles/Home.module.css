@@ -1,19 +1,79 @@
-.container {
+.homePage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.backgroundVideo {
+  position: fixed; /* stays behind everything */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* behind content */
+}
+
+.homeWrapper {
+  position: relative; /* ensures content above video */
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  justify-content: center;
+  min-height: 100vh;
   text-align: center;
+  animation: fadeInRight 1s ease;
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-bottom: 1rem;
+  color: #eee9e9;
 }
 
 .subtitle {
   font-size: 1.2rem;
-  color: #555;
+  color: #eee9e9;
   max-width: 600px;
+}
+
+.highlight {
+  color: #74c8f8;
+  font-family: Verdana, Geneva, Tahoma, serif;
+  font-size: 3rem;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.projectButton {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.3rem;
+  font-size: 1.0rem;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #111;
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.projectButton:hover {
+  background-color: #4da8e0;
+  transform: translateY(-2px);
+  color: white;
 }

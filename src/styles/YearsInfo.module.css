@@ -1,0 +1,41 @@
+.container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.year {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.event {
+  margin-bottom: 1.5rem;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: white;
+}
+
+.image {
+  display: block;
+  margin-top: 1rem;
+  max-width: 100%;
+  border-radius: 8px;
+}
