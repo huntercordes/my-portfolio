@@ -75,7 +75,7 @@ function App() {
           {/* Navbar always visible */}
           <NavBar />
 
-          {/* Page content */}
+          {/* Page contents */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/mywork" element={<MyWork />} />
