@@ -67,7 +67,7 @@ function App() {
 
   return (
     <VideoProvider>
-    <Router>
+    
       {showSplash ? (
         <SplashScreen onFinish={() => setShowSplash(false)} />
       ) : (
@@ -88,7 +88,7 @@ function App() {
           </Routes>
         </>
       )}
-    </Router>
+    
     </VideoProvider>
   );
 }
