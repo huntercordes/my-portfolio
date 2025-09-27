@@ -36,7 +36,7 @@ function About() {
         <source src={darkbackground} type="video/mp4" />
       </video>
 
-      {/* Section 0: Introductions */}
+      {/* Section 0: Introduction */}
       <Introduction />
 
       {/* Section 1: Piano */}
