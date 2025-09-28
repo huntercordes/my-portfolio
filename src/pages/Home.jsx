@@ -1,5 +1,4 @@
 import styles from "../styles/Home.module.css";
-import darkbackground from "../assets/darkbackground.mp4";
 import { Link } from "react-router-dom"; // import Link
 
 function Home() {
@@ -7,7 +6,7 @@ function Home() {
     <div className={styles.homePage}>
       {/* Background video */}
       <video autoPlay loop muted className={styles.backgroundVideo}>
-        <source src={darkbackground} type="video/mp4" />
+        <source src="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/darkbackground.mp4?alt=media&token=976b1a8a-2d63-4753-8e06-ab5164ff97cf" type="video/mp4" />
       </video>
 
       {/* Foreground content */}

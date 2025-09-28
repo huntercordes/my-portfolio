@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import Timeline from "../components/Experience/Timeline";
 import ExperienceContent from "../components/Experience/ExperienceContent";
 import styles from "../styles/Experience.module.css";
-import backgroundVideo from "../assets/darkbackground.mp4"; // background video
 
 function Experience() {
   const [section, setSection] = useState("before"); // "before" or "after"
@@ -56,7 +55,7 @@ function Experience() {
         muted
         className={styles.backgroundVideo}
       >
-        <source src={backgroundVideo} type="video/mp4" />
+        <source src="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/darkbackground.mp4?alt=media&token=976b1a8a-2d63-4753-8e06-ab5164ff97cf" type="video/mp4" />
       </video>
 
       {/* Title left side */}

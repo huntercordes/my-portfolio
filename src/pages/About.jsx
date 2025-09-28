@@ -5,12 +5,9 @@ import TwoVideoCards from "../components/About/TwoVideoCards";
 import PhotoCarousel from "../components/About/PhotoCarousel";
 import FullscreenVideo from "../components/About/FullscreenVideo";
 import Introduction from "../components/About/Introduction";
-import video from "../assets/C0058.mp4";
 import Me from "../assets/Me.jpeg";
 import cutout1 from "../assets/cutout1.png";
 import styles from "../styles/About.module.css";
-import lun from "../assets/LunEditPortfolio.mp4";
-import darkbackground from "../assets/darkbackground.mp4";
 
 function About() {
   const backgroundRef = useRef(null);
@@ -33,7 +30,7 @@ function About() {
         style={{ animation: "fadeIn 1s ease" }}
         playbackRate={0.1}
       >
-        <source src={darkbackground} type="video/mp4" />
+        <source src="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/darkbackground.mp4?alt=media&token=976b1a8a-2d63-4753-8e06-ab5164ff97cf" type="video/mp4" />
       </video>
 
       {/* Section 0: Introduction */}
@@ -42,7 +39,7 @@ function About() {
       {/* Section 1: Piano */}
       <section id="piano" className={styles.snapSection}>
         <HeroVideo
-          src={lun}
+          src="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/LunEditPortfolio.mp4?alt=media&token=94914e80-35d0-4747-bbf3-74265ccbaa71"
           alt="Hunter playing piano"
           title="Piano Performance"
           description="Improvised piano performance showing creativity and focus."
@@ -52,8 +49,8 @@ function About() {
       {/* Section 2: Violin + Poetry */}
       <section id="violin" className={styles.snapSection}>
         <TwoVideoCards
-          leftVideo={{ src: video, title: "Violin" }}
-          rightVideo={{ src: video, title: "Poetry" }}
+          leftVideo={{ src: "https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/LunEditPortfolio.mp4?alt=media&token=94914e80-35d0-4747-bbf3-74265ccbaa71", title: "Violin" }}
+          rightVideo={{ src: "https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/C0058.mp4?alt=media&token=5b5c5c5c-5c5c-5c5c-5c5c-5c5c5c5c5c5c", title: "Poetry" }}
         />
       </section>
 
@@ -65,7 +62,7 @@ function About() {
       {/* Section 4: Videography */}
       <section id="videography" className={styles.snapSection}>
         <FullscreenVideo
-          src={video}
+          src="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/LunEditPortfolio.mp4?alt=media&token=94914e80-35d0-4747-bbf3-74265ccbaa71"
           alt="Videography showcase"
           title="Videography Showcase"
           description="A compilation of my videography work."

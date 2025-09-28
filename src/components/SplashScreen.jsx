@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/SplashScreen.module.css";
-import grassandsky from "../assets/grassandsky.mp4"; // replace with your video file
 
 export default function SplashScreen({ onFinish }) {
   const [showText, setShowText] = useState(false);
@@ -26,7 +25,7 @@ export default function SplashScreen({ onFinish }) {
   return (
     <div className={`${styles.splash} ${fadeOut ? styles.fadeOut : ""}`}>
       <video autoPlay muted className={styles.video}>
-        <source src={grassandsky} type="video/mp4" />
+        <source src="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/darkbackground.mp4?alt=media&token=976b1a8a-2d63-4753-8e06-ab5164ff97cf" type="video/mp4" />
       </video>
 
       {showText && (
