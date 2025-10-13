@@ -9,7 +9,22 @@
 }
 
 .cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* space between cards */
+}
+.container {
+  position: relative;
+  padding: 2rem;
+  z-index: 1; /* make sure content is above the video */
+}
+
+.backgroundVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* behind everything */
 }

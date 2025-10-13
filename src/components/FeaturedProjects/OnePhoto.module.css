@@ -1,0 +1,16 @@
+.photoContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  overflow: hidden;
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px; /* optional for a softer look */
+  max-height: 600px; /* keeps it from being too tall on large screens */
+}

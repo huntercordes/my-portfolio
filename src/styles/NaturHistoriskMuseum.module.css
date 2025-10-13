@@ -1,5 +1,21 @@
+body{
+  background: rgba(20, 20, 20, 0.85);
+
+}
 .page {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  
+
+  
 }
+.container {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  color: white;
+  background: rgba(20, 20, 20, 0.85);
+}
+
+

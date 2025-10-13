@@ -1,20 +1,22 @@
 /* About.module.css */
 .snapContainer {
   height: 100vh;                /* full viewport height */
-  overflow-y: scroll;          /* allow vertical scroll */
+  overflow-y: scroll;           /* allow vertical scroll */
   overflow-x: hidden; 
-  scroll-snap-type: y mandatory;/* force snapping vertically */
+  /* scroll-snap-type: y mandatory;  <-- REMOVE THIS */
   scroll-behavior: smooth;      /* smooth scrolling */
 }
 
 .snapSection {
-  height: 90vh;                /* each section fills screen */
-  scroll-snap-align: start;     /* snap to top of viewport */
+   min-height: 90vh;  /* instead of fixed height */
+  height: auto;
   display: flex;                /* optional, for centering content */
   align-items: center;
+    flex-direction: column;
+
   justify-content: center;
-  
 }
+
 .video {
   width: 100%;
   height: 70vh;

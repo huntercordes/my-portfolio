@@ -18,21 +18,39 @@ const sections = {
   ],
 };
 
-function Timeline({ section, setSection, onDotClick, activeYear }) {
-  const years = sections[section];
+function Timeline({ section, setSection, onDotClick, activeYear, scrollRef }) {
+  // Reverse both sections for newest → oldest
+  const years =
+    section === "after"
+      ? [...sections.after].reverse()
+      : [...sections.before].reverse();
+
+  // Handle section change & scroll to top
+  const handleSectionChange = (newSection) => {
+    setSection(newSection);
+    if (scrollRef?.current) {
+      scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  // Correct arrow logic:
+  // - "after" section is first, down arrow goes to "before" (next in timeline)
+  // - "before" section is last, up arrow goes back to "after"
+  const prevSection = section === "before" ? "after" : null; // Up arrow
+  const nextSection = section === "after" ? "before" : null;  // Down arrow
 
   return (
     <div className={styles.timelineWrapper}>
       {/* Up arrow */}
       <button
         className={styles.arrow}
-        onClick={() => setSection("before")}
-        disabled={section === "before"}
+        onClick={() => prevSection && handleSectionChange(prevSection)}
+        disabled={!prevSection}
       >
         ↑
       </button>
 
-      {/* Dots + vertical line */}
+      {/* Dots + line */}
       <div className={styles.dotsContainer}>
         <div className={styles.line} />
         {years.map(({ year, tooltip, empty }) => (
@@ -53,11 +71,20 @@ function Timeline({ section, setSection, onDotClick, activeYear }) {
       {/* Down arrow */}
       <button
         className={styles.arrow}
-        onClick={() => setSection("after")}
-        disabled={section === "after"}
+        onClick={() => nextSection && handleSectionChange(nextSection)}
+        disabled={!nextSection}
       >
         ↓
       </button>
+
+      {/* Floating label */}
+      <div className={styles.labelWrapper}>
+        <div className={`${styles.flipBox} ${section === "after" ? styles.flipped : ""}`}>
+          <div className={styles.flipFront}>Before</div>
+          <div className={styles.flipBack}>Since</div>
+        </div>
+        <span className={styles.labelStatic}>Denmark</span>
+      </div>
     </div>
   );
 }

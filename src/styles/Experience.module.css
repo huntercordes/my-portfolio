@@ -11,6 +11,7 @@
   overflow-y: auto;   /* allow vertical scrolling */
   width: 100%;
   padding: 0;
+  z-index: 1;
 }
 
 /* Title at top, spanning all columns */

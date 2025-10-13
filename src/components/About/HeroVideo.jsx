@@ -5,7 +5,7 @@ import overlayStyles from "../../styles/OverlayText.module.css";
 
 export default function HeroVideo({ src, alt, title, description }) {
   const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const { registerVideo } = useContext(VideoContext);
 
   const togglePlay = () => {
@@ -24,7 +24,6 @@ export default function HeroVideo({ src, alt, title, description }) {
     <div className={`${styles.hero} ${overlayStyles.mediaWrapper}`}>
       <video
         ref={videoRef}
-        autoPlay
         loop
         playsInline
         className={`${styles.video} ${overlayStyles.media}`}

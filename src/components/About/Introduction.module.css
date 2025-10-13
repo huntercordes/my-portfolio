@@ -4,32 +4,69 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  position: relative;
+  margin: 0 auto 10vh auto;
+  padding: 0;
+  background: transparent; /* removes any box feel */
+  overflow: visible; /* ensures gradient can breathe */
 }
 
+/* === OVAL FADE THAT BLENDS INTO BACKGROUND === */
+.fadeOval {
+  padding: 5rem 6rem;
+  border-radius: 9999px; /* full oval */
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(245, 245, 245, 0.95) 50%,
+    rgba(20, 20, 20, 0.2) 85%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  box-shadow: 0 0 60px rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(4px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* subtle scale on hover */
+.fadeOval:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 90px rgba(255, 255, 255, 0.05);
+}
+
+/* content centered in oval */
 .introContent {
-  max-width: 800px;
   text-align: center;
-}
-
-.title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: #fff;
-  margin-bottom: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: #111;
+  position: relative;
+  z-index: 1;
 }
 
 .photo {
-  width: 250px;
-  border-radius: 12px;
-  margin-bottom: 2rem;
+  width: 200px;
+
 }
 
 .introContent p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  line-height: 1.6;
-  color: #ddd;
-  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  color: #111;
+  margin-bottom: 1.4rem;
+}
+
+/* responsiveness */
+@media (max-width: 900px) {
+  .fadeOval {
+    padding: 3rem 2rem;
+    border-radius: 60px;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(240, 240, 240, 0.9) 50%,
+      rgba(10, 10, 10, 0) 100%
+    );
+  }
 }

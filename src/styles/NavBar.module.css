@@ -1,3 +1,4 @@
+/* Navbar container */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -6,39 +7,47 @@
   position: sticky;
   top: 0;
   z-index: 1003;
-  background: transparent; /* make navbar see-through */
-  backdrop-filter: none; /* remove any blur if previously added */
-
-
+  background: transparent;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
 }
+
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+/* Logo */
 .logo img {
   height: 40px;
 }
 
+/* Desktop Links */
 .navLinks {
   list-style: none;
   display: flex;
   gap: 2rem;
+  z-index: 1004;
 }
 
-.navLinks a {
+.navLinks li a {
   color: #eee9e9;
   text-decoration: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: .8rem;
+  font-size: 0.8rem;
   letter-spacing: 0.05em;
-  position: relative;
   font-weight: 500;
-}
-.navLinks a:hover {
-  color: #74c8f8; /* light blue on hover */
+  position: relative;
 }
 
-.navLinks a::after {
+.navLinks li a:hover {
+  color: #74c8f8;
+}
+
+.navLinks li a::after {
   content: "";
   display: block;
   height: 2px;
-  background: white; /* golden underline */
+  background: white;
   width: 0;
   transition: width 0.3s ease, left 0.3s ease;
   position: absolute;
@@ -46,7 +55,62 @@
   left: 50%;
 }
 
-.navLinks a:hover::after {
+.navLinks li a:hover::after {
   width: 100%;
-    left: 0;
+  left: 0;
+}
+
+/* Hamburger Button */
+.burger {
+  display: none; /* hidden on desktop */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1005;
+  padding: 0;
+}
+
+.line {
+  width: 100%;
+  height: 3px;
+  background-color: #eee9e9;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 900px) {
+  .burger {
+    display: flex; /* show burger */
+  }
+
+  .navLinks {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 220px;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.95);
+    padding-top: 6rem;
+    gap: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .navLinks.open {
+    transform: translateX(0);
+  }
+
+  .navLinks li {
+    text-align: center;
+  }
+
+  .navLinks li a {
+    font-size: 1rem;
+  }
 }

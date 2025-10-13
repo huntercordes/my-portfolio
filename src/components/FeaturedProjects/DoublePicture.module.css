@@ -1,0 +1,48 @@
+.doublePicture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  margin: 3rem 8vw;
+  flex-wrap: wrap; /* allows wrapping when needed */
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 45%; /* each takes up about half the row but can shrink */
+  max-width: 48%;
+}
+
+.image {
+  width: 100%;
+  height: auto; /* preserve proportions */
+  max-height: 500px; /* ✅ limit how tall images can get */
+  object-fit: contain; /* no cropping, maintain full image */
+  border-radius: 12px;
+  transition: transform 0.4s ease;
+}
+
+.image:hover {
+  transform: scale(1.02);
+}
+
+/* 📱 Stack vertically on smaller screens */
+@media (max-width: 950px) {
+  .doublePicture {
+    flex-direction: column;
+    gap: 2rem;
+    margin: 2rem 6vw;
+  }
+
+  .imageWrapper {
+    max-width: 90%;
+  }
+
+  .image {
+    width: 100%;
+    height: auto;
+    max-height: 400px; /* slightly smaller for mobile */
+  }
+}

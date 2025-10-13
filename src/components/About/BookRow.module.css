@@ -1,0 +1,82 @@
+.bookRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 3rem 0;
+  margin-left: 130px;
+  margin-right: 130px;
+  position: relative;
+}
+
+.rowTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #fff;
+}
+
+.booksContainer {
+  display: flex;
+  flex-wrap: wrap;       /* 👈 allows wrapping */
+  justify-content: center;
+  gap: 2.2rem;
+}
+
+.bookWrapper {
+  position: relative;
+  max-width: 260px;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+  flex: 1 1 auto;        /* 👈 makes them shrink/wrap naturally */
+}
+
+.bookWrapper:hover {
+  transform: scale(1.05);
+}
+
+.bookCover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bookWrapper:hover .overlay {
+  opacity: 1;
+}
+
+/* --- Responsive breakpoints --- */
+@media (max-width: 1100px) {
+  .bookWrapper {
+    flex: 1 1 45%;   /* two per row */
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 700px) {
+  .bookWrapper {
+    flex: 1 1 90%;   /* one per row */
+    max-width: 400px;
+  }
+}
