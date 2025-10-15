@@ -17,6 +17,10 @@ import ooux from "../assets/ooux.png";
 import moodboard from "../assets/moodboard.png";
 import styleguide from "../assets/styleguide.png";
 import userflowexam from "../assets/userflowexam.jpg";
+import hifive from "../assets/hifive.png";
+import lofi from "../assets/lofi.png";
+import contrastcheck from "../assets/contrastcheck.jpg";
+import Navimage from "../assets/Navbar.jpg"
 
 export default function NaturHistoriskMuseum() {
 
@@ -97,6 +101,31 @@ export default function NaturHistoriskMuseum() {
         rightText="User flow is a crucial part of designing our solution because it shows the path users take to complete important tasks on the website. It helps us understand how users move through the system and what steps they follow to reach their goals smoothly."
       />
       <OnePhoto src={userflowexam} alt="Naturhistorisk Museum redesign" />
+      <RowOne
+        leftTitle="Lo-Fi Wireframes"
+        leftText="This phase helped us define the app’s main features, organize content effectively, and plan how users would interact with different parts of the app. The Lo-Fi wireframes served as a blueprint, allowing us to test the flow and functionality early on, and make improvements before developing the high-fidelity design."
+        rightTitle="Gangster and Guerilla testing"
+        rightText="To evaluate the usability and findability of our lo-fi wireframe, we applied gangster testing (Trunk Testing) and guerrilla testing methods. We asked people to test the prototype by completing typical tasks like exploring biomes, accessing animal information, and using the profile and story game page. During these sessions, we observed their interactions and asked questions to understand where they struggled or became confused."
+      />
+      <OnePhoto src={lofi} alt="Naturhistorisk Museum redesign" />
+      <RowOne
+        leftTitle="Hi-Fi Wireframes"
+        leftText="After getting useful feedback from our Lo-Fi testing, we moved on to the high-fidelity mockups. Here, we focused on visual style, adding real content, and making everything feel more finished and user-friendly. We followed our mood board to keep colors consistent across all screens. For visuals, we used AI to generate images that matched the theme of our app. On the Biomes page, we used Sora to create short videos for each biome instead of static pictures."
+        rightTitle="Accessibility"
+        rightText="To make sure our design is accessible for everyone, we used a Figma plugin called Stark – Contrast and Accessibility Checker. This tool helped us test different parts of our design so that people with different needs and abilities can still use the website comfortably."
+        />
+        <DoublePicture
+        leftImg={hifive}
+        rightImg={contrastcheck}
+        leftAlt="Hi-Fi Wireframes"
+        rightAlt="Accessibility checker"
+      />
+      <ProjectManagement
+        title="Coding"
+        description="Once our high-fidelity prototypes were finalized and user-tested, we began developing the new museum website using React, a component-based JavaScript library that supports modular, reusable, and scalable design. This approach streamlined our workflow and improved performance through React’s virtual DOM, which updates only the necessary parts of a page. From the beginning, we also prioritized SEO, implementing best practices such as metadata optimization, descriptive alt text, and server-side rendering where possible. Each component was styled using CSS modules to ensure maintainability and prevent style conflicts. Finally, we focused on responsive design, ensuring the layout adapted smoothly across devices for both on-site and remote visitors."
+        imgSrc={Navimage}
+        imgAlt="Navigation Bar Code"
+      />
     </div>
     
   );
