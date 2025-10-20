@@ -7,21 +7,22 @@
   position: relative;
   margin: 0 auto 10vh auto;
   padding: 0;
-  background: transparent; /* removes any box feel */
-  overflow: visible; /* ensures gradient can breathe */
+  background: transparent;
+  /* removes any box feel */
+  overflow: visible;
+  /* ensures gradient can breathe */
 }
 
 /* === OVAL FADE THAT BLENDS INTO BACKGROUND === */
 .fadeOval {
   padding: 5rem 6rem;
-  border-radius: 9999px; /* full oval */
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(245, 245, 245, 0.95) 50%,
-    rgba(20, 20, 20, 0.2) 85%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  border-radius: 9999px;
+  /* full oval */
+  background: radial-gradient(ellipse at center,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(245, 245, 245, 0.95) 50%,
+      rgba(20, 20, 20, 0.2) 85%,
+      rgba(0, 0, 0, 0) 100%);
   box-shadow: 0 0 60px rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(4px);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -49,9 +50,10 @@
 }
 
 .introContent p {
-  font-size: 1.1rem;
-  font-weight: 700;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.3rem;
+  font-family: articulat-cf, sans-serif;
+  font-style: normal;
+  font-weight: 400;
   line-height: 1.5;
   color: #111;
   margin-bottom: 1.4rem;
@@ -62,11 +64,9 @@
   .fadeOval {
     padding: 3rem 2rem;
     border-radius: 60px;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(240, 240, 240, 0.9) 50%,
-      rgba(10, 10, 10, 0) 100%
-    );
+    background: radial-gradient(ellipse at center,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(240, 240, 240, 0.9) 50%,
+        rgba(10, 10, 10, 0) 100%);
   }
 }

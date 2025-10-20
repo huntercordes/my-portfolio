@@ -18,12 +18,12 @@ const projects = [
   },
   {
     id: "project-2",
-    title: "Other Case Study",
+    title: "Spilcafeen",
     date: "Fall 2024",
     keywords: ["UX/UI", "Prototyping", "Case Study"],
     description:
       "A UX/UI design case study focusing on user-centered research and wireframing for a mobile-first solution.",
-    link: "/featured-projects/other-case-study",
+    link: "/featured-projects/spilcafeen",
     image: animelogo33,
   },
 ];

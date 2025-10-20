@@ -11,6 +11,9 @@
 
 .item {
   cursor: pointer;
+  font-family: parabolica, sans-serif;
+  font-style: normal;
+  font-weight: 100;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -23,7 +26,8 @@
 }
 
 .active {
-  color: white; /* highlight active item */
+  color: white;
+  /* highlight active item */
 }
 
 .bar {
