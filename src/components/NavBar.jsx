@@ -13,6 +13,10 @@ function NavBar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "auto";
+  }, [menuOpen]);
 
   const handleLinkClick = () => setMenuOpen(false);
 
@@ -70,9 +74,9 @@ function NavBar() {
         aria-label="Toggle menu"
         aria-expanded={menuOpen}>
         {menuOpen ? (
-          <FaTimes size={32} color="#fff" className={styles.icon} />
+          <FaTimes size={26} color="#fff" className={styles.icon} />
         ) : (
-          <FaBars size={32} color="#000" className={styles.icon} />
+          <FaBars size={26} color="#000" className={styles.icon} />
         )}
       </button>
 

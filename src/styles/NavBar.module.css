@@ -10,13 +10,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 2rem;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   box-sizing: border-box;
   z-index: 1003;
-  overflow-x: hidden;
 }
 
 /* Add optional scrolled state (if you want blurred background when scrolled) */
@@ -122,10 +121,9 @@
   display: none;
   align-items: center;
   justify-content: center;
-  width: 15%; /* takes 70% of button size */
-  height: 70%;
+  width: 60px;
+  height: 60px;
   background: transparent;
-  border: none;
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;

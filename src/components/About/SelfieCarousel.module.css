@@ -1,0 +1,154 @@
+.carouselContainer {
+  width: 100%;
+  position: relative;
+  margin: 5rem auto;
+  background: transparent;
+  box-sizing: border-box;
+  overflow: hidden; /* prevents page overflow */
+}
+
+/* Horizontally scrollable area */
+.scrollArea {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto; /* internal horizontal scroll */
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  padding: 0 5vw 1rem; /* left/right breathing room */
+  scroll-snap-type: x mandatory;
+}
+
+.scrollArea::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Image card */
+.imageWrapper {
+  flex: 0 0 auto;
+  width: 240px;
+  height: 240px;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+  scroll-snap-align: start;
+}
+
+.imageWrapper:hover .image,
+.imageWrapper:active .image {
+  transform: scale(1.08);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  transition: transform 0.4s ease;
+}
+
+/* Overlay text */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.imageWrapper:hover .overlay,
+.imageWrapper:active .overlay {
+  opacity: 1;
+}
+
+/* Scroll hint */
+.scrollHint {
+  position: absolute;
+  bottom: 16px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.arrowIcon {
+  font-size: 1rem;
+  animation: nudge 1.5s infinite ease-in-out;
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .imageWrapper {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .imageWrapper {
+    width: 160px;
+    height: 160px;
+  }
+
+  .overlay {
+    font-size: 0.8rem;
+  }
+
+  .scrollArea {
+    padding: 0 4vw 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .imageWrapper {
+    width: 130px;
+    height: 130px;
+  }
+
+  .overlay {
+    font-size: 0.7rem;
+  }
+
+  .scrollArea {
+    padding: 0 3vw 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .imageWrapper {
+    width: 110px;
+    height: 110px;
+  }
+
+  .scrollArea {
+    padding: 0 2vw 1rem;
+  }
+}

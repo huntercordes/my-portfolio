@@ -19,49 +19,50 @@ import photoshoot from "../assets/photoshoot.jpeg";
 import wedding from "../assets/wedding.jpg";
 import texas from "../assets/texas.jpg";
 
-
 import cutout1 from "../assets/cutout1.png";
 import styles from "../styles/About.module.css";
 
 function About() {
   const backgroundRef = useRef(null);
 
-  useEffect(() => {
-    if (backgroundRef.current) {
-      backgroundRef.current.playbackRate = 0.5; // slow down background video
-    }
-  }, []);
-
   return (
     <div className={styles.snapContainer}>
-      {/* Background Video */}
-      <video
-        ref={backgroundRef}
-        autoPlay
-        loop
-        muted
-        className={styles.backgroundVideo}
-        style={{ animation: "fadeIn 1s ease" }}
-        playbackRate={0.1}
-      >
-        <source src="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/darkbackground.mp4?alt=media&token=976b1a8a-2d63-4753-8e06-ab5164ff97cf" type="video/mp4" />
-      </video>
-
       {/* Section 0: Introduction */}
       <Introduction />
-            {/* Section 3: Photography Carousel */}
+      {/* Section 3: Photography Carousel */}
       <section id="photography" className={styles.snapSection}>
         <PhotoCarousel
-  images={[
-    { src: indianman, description: "A quiet bookstore in Kyoto where I spent an afternoon reading." },
-    { src: berlin, description: "The misty mountains at sunrise felt surreal." },
-    { src: lisbonfilm, description: "A lively street festival full of colors and sounds." },
-    { src: photoshoot, description: "The calm of a hidden temple garden." },
-    { src: wedding, description: "Watching the countryside roll by on the Shinkansen." },
-    { src: texas, description: "Watching the countryside roll by on the Shinkansen." },
-
-  ]}
-/>
+          images={[
+            {
+              src: indianman,
+              description:
+                "A quiet bookstore in Kyoto where I spent an afternoon reading.",
+            },
+            {
+              src: berlin,
+              description: "The misty mountains at sunrise felt surreal.",
+            },
+            {
+              src: lisbonfilm,
+              description:
+                "A lively street festival full of colors and sounds.",
+            },
+            {
+              src: photoshoot,
+              description: "The calm of a hidden temple garden.",
+            },
+            {
+              src: wedding,
+              description:
+                "Watching the countryside roll by on the Shinkansen.",
+            },
+            {
+              src: texas,
+              description:
+                "Watching the countryside roll by on the Shinkansen.",
+            },
+          ]}
+        />
       </section>
 
       {/* Section 1: Piano */}
@@ -75,28 +76,31 @@ function About() {
       </section>
 
       {/* Section 2.5: Books */}
-<section id="books" className={styles.snapSection}>
-  <BookRow
-    title="My Last 3 Books"
-    books={[
-      {
-        cover: Klara,
-        alt: "Klara and the Sun",
-        description: "A Nobel Prize winner in literature, Klara and the Sun is one of the most fascinating books I’ve ever read. What struck me most about the author’s portrayal of being “born” into the world as an AI was how ordinary human experiences — the ones we never think twice about — could feel so strange and alien."
-      },
-      {
-        cover: morisaki,
-        alt: "Days at the Morisaki Bookshop",
-        description: "Before my trip to Japan a few months ago, I read Days at the Morisaki Bookshop — and its sequel while I was there. Reading about someone working in a bookshop while I sat in a Kyoto bookstore, watching the rain fall outside, is a memory I’ll always cherish."
-      },
-      {
-        cover: quantum,
-        alt: "Beyond Weird: Quantum Physics Explained",
-        description: "A book on a complex topic I know nothing about? Why not. I just wanted a Cillian Murphy moment where I lay in bed and suddenly I have a vision on how to split an atom. That moment never came, but I love that I can now join a conversation on quantum physics and actually understand a bit of what is going on!"
-      }
-    ]}
-  />
-</section>
+      <section id="books" className={styles.snapSection}>
+        <BookRow
+          title="My Last 3 Books"
+          books={[
+            {
+              cover: Klara,
+              alt: "Klara and the Sun",
+              description:
+                "A Nobel Prize winner in literature, Klara and the Sun is one of the most fascinating books I’ve ever read. What struck me most about the author’s portrayal of being “born” into the world as an AI was how ordinary human experiences — the ones we never think twice about — could feel so strange and alien.",
+            },
+            {
+              cover: morisaki,
+              alt: "Days at the Morisaki Bookshop",
+              description:
+                "Before my trip to Japan a few months ago, I read Days at the Morisaki Bookshop — and its sequel while I was there. Reading about someone working in a bookshop while I sat in a Kyoto bookstore, watching the rain fall outside, is a memory I’ll always cherish.",
+            },
+            {
+              cover: quantum,
+              alt: "Beyond Weird: Quantum Physics Explained",
+              description:
+                "A book on a complex topic I know nothing about? Why not. I just wanted a Cillian Murphy moment where I lay in bed and suddenly I have a vision on how to split an atom. That moment never came, but I love that I can now join a conversation on quantum physics and actually understand a bit of what is going on!",
+            },
+          ]}
+        />
+      </section>
 
       {/* Section 4: Videography */}
       <section id="videography" className={styles.snapSection}>
@@ -114,7 +118,7 @@ function About() {
           { id: "introduction", label: "Introduction" },
           { id: "photography", label: "Photography" },
           { id: "piano", label: "Piano" },
-           { id: "books", label: "Books" },
+          { id: "books", label: "Books" },
           { id: "videography", label: "Videography" },
         ]}
       />

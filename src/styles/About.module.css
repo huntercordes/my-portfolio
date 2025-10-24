@@ -1,18 +1,18 @@
 /* About.module.css */
 .snapContainer {
-  height: 100vh;                /* full viewport height */
-  overflow-y: scroll;           /* allow vertical scroll */
-  overflow-x: hidden; 
-  /* scroll-snap-type: y mandatory;  <-- REMOVE THIS */
-  scroll-behavior: smooth;      /* smooth scrolling */
+  width: 100%;
+  min-height: 100vh; /* allow content to expand */
+  background: transparent; /* let the global background show through */
+  display: flex;
+  flex-direction: column;
 }
 
 .snapSection {
-   min-height: 90vh;  /* instead of fixed height */
+  min-height: 90vh; /* instead of fixed height */
   height: auto;
-  display: flex;                /* optional, for centering content */
+  display: flex; /* optional, for centering content */
   align-items: center;
-    flex-direction: column;
+  flex-direction: column;
 
   justify-content: center;
 }

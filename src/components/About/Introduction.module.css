@@ -1,44 +1,21 @@
 .introSection {
-  height: 90vh;
+  min-height: 90vh; /* Use min-height so it can grow if content expands */
   scroll-snap-align: start;
   display: flex;
+  flex-direction: column; /* safer for vertical stacking */
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 0 auto 10vh auto;
-  padding: 0;
+  margin: 0 auto;
+  padding: 4rem 1rem; /* add some padding so it doesn’t touch edges */
   background: transparent;
-  /* removes any box feel */
-  overflow: visible;
-  /* ensures gradient can breathe */
+  overflow: hidden; /* prevents visuals from bleeding into next section */
+  box-sizing: border-box; /* ensures padding doesn’t add unexpected height */
 }
 
-/* === OVAL FADE THAT BLENDS INTO BACKGROUND === */
-.fadeOval {
-  padding: 5rem 6rem;
-  border-radius: 9999px;
-  /* full oval */
-  background: radial-gradient(ellipse at center,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(245, 245, 245, 0.95) 50%,
-      rgba(20, 20, 20, 0.2) 85%,
-      rgba(0, 0, 0, 0) 100%);
-  box-shadow: 0 0 60px rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(4px);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-/* subtle scale on hover */
-.fadeOval:hover {
-  transform: scale(1.01);
-  box-shadow: 0 0 90px rgba(255, 255, 255, 0.05);
-}
-
-/* content centered in oval */
 .introContent {
   text-align: center;
   max-width: 700px;
-  margin: 0 auto;
   color: #111;
   position: relative;
   z-index: 1;
@@ -46,7 +23,10 @@
 
 .photo {
   width: 200px;
-
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 2rem; /* space below the image */
 }
 
 .introContent p {
@@ -59,14 +39,18 @@
   margin-bottom: 1.4rem;
 }
 
-/* responsiveness */
+/* RESPONSIVE */
 @media (max-width: 900px) {
-  .fadeOval {
-    padding: 3rem 2rem;
-    border-radius: 60px;
-    background: radial-gradient(ellipse at center,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(240, 240, 240, 0.9) 50%,
-        rgba(10, 10, 10, 0) 100%);
+  .introSection {
+    min-height: 80vh;
+    padding: 2rem 1rem;
+  }
+
+  .photo {
+    width: 140px;
+  }
+
+  .introContent p {
+    font-size: 1.1rem;
   }
 }
