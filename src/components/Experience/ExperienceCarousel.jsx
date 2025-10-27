@@ -1,14 +1,13 @@
-import { forwardRef, useRef, useEffect } from "react";
+import { forwardRef, useRef, useEffect, useImperativeHandle, useCallback } from "react";
 import styles from "../../styles/ExperienceCarousel.module.css";
 import animelogo33 from "../../assets/animelogo33.png";
-import calpolypomona from "../../assets/CalPoly.png";
 import northwesternmutual from "../../assets/northwestern-mutual.jpeg";
 import netto from "../../assets/netto.jpg";
 import lars from "../../assets/lars.jpeg";
 import Klara from "../../assets/Klara.png";
 import morisaki from "../../assets/morisaki.png";
 
-const experiences = [
+export const experiences = [
   {
     year: 2025,
     title: "SPOT / UMTO / FoW",
@@ -86,62 +85,148 @@ const experiences = [
   },
 ];
 
-const ExperienceCarousel = forwardRef(
-  ({ activeIndex, setActiveIndex }, ref) => {
-    const containerRef = useRef();
+const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => {
+  const containerRef = useRef(null);
+  const cardRefs = useRef([]);
+  const isProgrammaticScrollRef = useRef(false);
+  const programmaticTargetRef = useRef(0);
+  const internalUpdateRef = useRef(false);
+  const isInitialRenderRef = useRef(true);
 
-    useEffect(() => {
-      const container = containerRef.current;
-      const handleScroll = () => {
-        const cards = Array.from(container.children);
-        const center = container.scrollLeft + container.offsetWidth / 2;
-        const closest = cards.reduce((prev, curr, i) => {
-          const currCenter = curr.offsetLeft + curr.offsetWidth / 2;
-          return Math.abs(currCenter - center) <
-            Math.abs(
-              cards[prev].offsetLeft + cards[prev].offsetWidth / 2 - center
-            )
-            ? i
-            : prev;
-        }, 0);
-        setActiveIndex(closest);
-      };
+  const scrollToCard = useCallback((index, behavior = "smooth") => {
+    const container = containerRef.current;
+    const card = cardRefs.current[index];
 
-      container.addEventListener("scroll", handleScroll);
-      return () => container.removeEventListener("scroll", handleScroll);
-    }, [setActiveIndex]);
+    if (!container || !card) {
+      return;
+    }
 
-    return (
-      <div
-        ref={(el) => {
-          ref.current = el;
-          containerRef.current = el;
-        }}
-        className={styles.carousel}>
-        {experiences.map((exp, i) => (
-          <div
-            key={exp.year + exp.title}
-            className={`${styles.card} ${
-              activeIndex === i ? styles.activeCard : ""
-            }`}>
-            <h2 className={styles.year}>{exp.year}</h2>
-            <h3 className={styles.title}>{exp.title}</h3>
-            <div className={styles.bubbles}>
-              {exp.bubbles.map((b, index) => (
-                <span key={index} className={styles.bubble}>
-                  {b}
-                </span>
-              ))}
-            </div>
-            <p className={styles.description}>{exp.description}</p>
-            {exp.photo && (
-              <img src={exp.photo} alt={exp.title} className={styles.photo} />
-            )}
+    const containerWidth = container.clientWidth;
+    const cardWidth = card.clientWidth;
+    const cardLeft = card.offsetLeft;
+
+    const target = cardLeft - (containerWidth - cardWidth) / 2;
+
+    if (Math.abs(container.scrollLeft - target) < 1) {
+      return;
+    }
+
+    isProgrammaticScrollRef.current = true;
+    programmaticTargetRef.current = target;
+    container.scrollTo({ left: target, behavior });
+  }, []);
+
+  useImperativeHandle(ref, () => ({
+    scrollToIndex: (index) => {
+      scrollToCard(index);
+    },
+  }));
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) {
+      return undefined;
+    }
+
+    let animationFrame = null;
+
+    const handleScroll = () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+
+      animationFrame = requestAnimationFrame(() => {
+        const { scrollLeft, clientWidth } = container;
+
+        if (isProgrammaticScrollRef.current) {
+          const distance = Math.abs(scrollLeft - programmaticTargetRef.current);
+          if (distance > 1) {
+            return;
+          }
+
+          isProgrammaticScrollRef.current = false;
+        }
+
+        const containerCenter = scrollLeft + clientWidth / 2;
+
+        let closestIndex = 0;
+        let minDistance = Infinity;
+
+        cardRefs.current.forEach((card, index) => {
+          if (!card) {
+            return;
+          }
+
+          const cardCenter = card.offsetLeft + card.clientWidth / 2;
+          const distance = Math.abs(cardCenter - containerCenter);
+
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        if (closestIndex !== activeIndex) {
+          internalUpdateRef.current = true;
+          setActiveIndex(closestIndex);
+        }
+      });
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [activeIndex, setActiveIndex]);
+
+  useEffect(() => {
+    if (isInitialRenderRef.current) {
+      isInitialRenderRef.current = false;
+      scrollToCard(activeIndex, "auto");
+      return;
+    }
+
+    if (internalUpdateRef.current) {
+      internalUpdateRef.current = false;
+      return;
+    }
+
+    scrollToCard(activeIndex);
+  }, [activeIndex, scrollToCard]);
+
+  return (
+    <div ref={containerRef} className={styles.carousel}>
+      {experiences.map((exp, i) => (
+        <div
+          key={exp.year + exp.title}
+          ref={(node) => {
+            cardRefs.current[i] = node;
+          }}
+          className={`${styles.card} ${
+            activeIndex === i ? styles.activeCard : ""
+          }`}>
+          <h2 className={styles.year}>{exp.year}</h2>
+          <h3 className={styles.title}>{exp.title}</h3>
+          <div className={styles.bubbles}>
+            {exp.bubbles.map((b, index) => (
+              <span key={index} className={styles.bubble}>
+                {b}
+              </span>
+            ))}
           </div>
-        ))}
-      </div>
-    );
-  }
-);
+          <p className={styles.description}>{exp.description}</p>
+          {exp.photo && (
+            <img src={exp.photo} alt={exp.title} className={styles.photo} />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+});
 
 export default ExperienceCarousel;

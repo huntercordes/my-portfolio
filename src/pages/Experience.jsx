@@ -1,22 +1,16 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import HorizontalTimeline from "../components/Experience/HorizontalTimeline";
-import ExperienceCarousel from "../components/Experience/ExperienceCarousel";
+import ExperienceCarousel, {
+  experiences,
+} from "../components/Experience/ExperienceCarousel";
 import styles from "../styles/Experience.module.css";
 
 export default function Experience() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const carouselRef = useRef(null);
-
-  const years = [2025, 2024, 2023, 2022, 2021, 2020, 2018, 2017, 2016];
+  const years = experiences.map((exp) => exp.year);
 
   const handleDotClick = (index) => {
-    if (carouselRef.current) {
-      const scrollX =
-        carouselRef.current.children[index].offsetLeft -
-        carouselRef.current.offsetWidth / 2 +
-        carouselRef.current.children[index].offsetWidth / 2;
-      carouselRef.current.scrollTo({ left: scrollX, behavior: "smooth" });
-    }
+    setActiveIndex(index);
   };
 
   return (
@@ -39,8 +33,6 @@ export default function Experience() {
       />
 
       <ExperienceCarousel
-        ref={carouselRef}
-        years={years}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       />
