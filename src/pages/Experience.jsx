@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import HorizontalTimeline from "../components/Experience/HorizontalTimeline";
 import ExperienceCarousel, {
   experiences,
@@ -7,16 +7,10 @@ import styles from "../styles/Experience.module.css";
 
 export default function Experience() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const carouselRef = useRef(null);
-
   const years = experiences.map((exp) => exp.year);
 
   const handleDotClick = (index) => {
     setActiveIndex(index);
-
-    if (carouselRef.current?.scrollToIndex) {
-      carouselRef.current.scrollToIndex(index);
-    }
   };
 
   return (
@@ -39,7 +33,6 @@ export default function Experience() {
       />
 
       <ExperienceCarousel
-        ref={carouselRef}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       />
