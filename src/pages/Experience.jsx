@@ -10,14 +10,24 @@ export default function Experience() {
   const years = experiences.map((exp) => exp.year);
 
   const handleDotClick = (index) => {
-    setActiveIndex(index);
+    const clampedIndex = Math.min(
+      Math.max(index, 0),
+      Math.max(experiences.length - 1, 0)
+    );
+    setActiveIndex(clampedIndex);
   };
 
   return (
-    <div className={styles.experienceContainer}>
-      <h1 className={styles.pageTitle}>
-        My<span className={styles.highlight}>Experiences</span>
-      </h1>
+    <section className={styles.experienceContainer}>
+      <header className={styles.header}>
+        <h1 className={styles.pageTitle}>
+          My<span className={styles.highlight}>Experiences</span>
+        </h1>
+        <p className={styles.subtitle}>
+          Use the arrows to move one card at a time or jump straight to a year
+          with the timeline below.
+        </p>
+      </header>
 
       <HorizontalTimeline
         years={years}
@@ -29,6 +39,6 @@ export default function Experience() {
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       />
-    </div>
+    </section>
   );
 }

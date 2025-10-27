@@ -1,167 +1,152 @@
 .carousel {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-
-  /* ► scrolling */
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  /* ► space so the first/last card can center */
-  padding: 0 8vw;
-  scroll-padding: 8vw;
-
-  /* layout */
-  height: 80vh; /* below title/timeline */
-  column-gap: 2rem; /* spacing between cards */
-  box-sizing: border-box;
-  perspective: 1000px;
-}
-.carousel::-webkit-scrollbar {
-  display: none;
-}
-
-/* --- Cards: same size at every breakpoint --- */
-.card {
-  /* same width per card, guaranteed overflow => scroll */
-  flex: 0 0 clamp(340px, 52vw, 560px);
-  aspect-ratio: 1 / 1.1; /* square-ish */
-  scroll-snap-align: center;
-
-  background: rgba(20, 20, 20, 0.85);
-  border-radius: 16px;
-  padding: 2rem;
-  color: #fff;
-  text-align: center;
-
-  transform: scale(0.9) rotateY(10deg);
-  transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.6s ease;
-  opacity: 0.65;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-
   display: grid;
-  grid-template-rows: auto auto auto 1fr auto; /* year, title, bubbles, desc, photo */
-  align-items: start;
-  justify-items: center;
-
-  max-height: 70vh; /* prevent vertical overflow */
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  width: min(100%, 960px);
+  margin: 0 auto 3rem;
+  padding: 1.5rem;
   box-sizing: border-box;
 }
 
-.activeCard {
-  transform: scale(1) rotateY(0deg);
-  opacity: 1;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+.navButton {
+  appearance: none;
+  background: #1c1c1c;
+  border: 1px solid #3a3a3a;
+  border-radius: 50%;
+  color: #f5f5f5;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.navButton:hover:not(:disabled) {
+  background: #2c2c2c;
+  border-color: #4db5ff;
+  transform: scale(1.05);
+}
+
+.navButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.card {
+  background: linear-gradient(160deg, #121212 0%, #1e1e1e 100%);
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+  color: #f7f7f7;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 1.25rem;
+  padding: clamp(1.8rem, 4vw, 2.6rem);
+  min-height: 420px;
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: center;
 }
 
 .year {
-  font-size: 1.3rem;
-  color: #daa803;
-  margin-bottom: 0.2rem;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f5c451;
+  margin: 0;
 }
+
 .title {
-  font-size: 1.6rem;
-  color: #74c8f8;
-  margin-bottom: 0.5rem;
+  font-size: clamp(1.5rem, 2.3vw, 2rem);
+  color: #4db5ff;
+  margin: 0;
 }
 
 .bubbles {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 0.5rem;
   justify-content: center;
-  margin-bottom: 0.6rem;
+  gap: 0.5rem;
 }
+
 .bubble {
-  background: #111;
-  border: 1px solid #74c8f8;
-  border-radius: 16px;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.8rem;
-  color: #74c8f8;
+  background: rgba(77, 181, 255, 0.12);
+  border: 1px solid rgba(77, 181, 255, 0.4);
+  border-radius: 999px;
+  color: #ccecff;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  padding: 0.35rem 0.8rem;
 }
 
-/* Description sits in the flexible row; clamp so it never pushes layout */
 .description {
-  align-self: stretch;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: #ddd;
-  padding: 0 0.5rem;
-  margin: 0 auto;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 7;
-  overflow: hidden; /* truncate if too long */
+  color: #e1e1e1;
+  line-height: 1.6;
+  margin: 0;
+  text-align: center;
 }
 
-/* Photo keeps proportions (no stretch/zoom) */
 .photo {
+  border-radius: 12px;
+  justify-self: center;
+  max-height: 220px;
+  max-width: min(100%, 360px);
+  object-fit: cover;
   width: 100%;
-  max-width: 360px;
-  height: auto;
-  max-height: 32vh;
-  object-fit: contain;
-  border-radius: 10px;
-  margin-top: 0.6rem;
 }
 
-/* --- Responsive tweaks --- */
-@media (max-width: 1024px) {
-  .carousel {
-    padding: 0 10vw;
-    scroll-padding: 10vw;
-  }
-  .card {
-    flex-basis: clamp(320px, 60vw, 540px);
-  }
-  .description {
-    -webkit-line-clamp: 6;
-  }
+.footer {
+  display: flex;
+  justify-content: center;
 }
 
-@media (max-width: 768px) {
+.counter {
+  color: #9aa6b2;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
   .carousel {
-    padding: 0 8vw;
-    scroll-padding: 8vw;
-    height: 75vh;
+    width: min(100%, 720px);
+    gap: 1rem;
   }
-  .card {
-    flex-basis: 80vw;
-    padding: 1.6rem;
-    aspect-ratio: 1 / 1.15;
-  }
-  .photo {
-    max-width: 300px;
-    max-height: 28vh;
-  }
-  .description {
-    -webkit-line-clamp: 5;
+
+  .navButton {
+    width: 2.75rem;
+    height: 2.75rem;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .carousel {
-    padding: 0 6vw;
-    scroll-padding: 6vw;
-    height: 72vh;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    justify-items: center;
+    gap: 1.25rem;
   }
+
+  .navButton {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
   .card {
-    flex-basis: 90vw;
-    padding: 1.2rem;
-    aspect-ratio: 1 / 1.22;
+    width: min(100%, 420px);
   }
-  .photo {
-    max-width: 260px;
-    max-height: 24vh;
+
+  .footer {
+    order: 4;
   }
-  .description {
-    -webkit-line-clamp: 4;
+
+  .carousel > .navButton:first-of-type {
+    order: -1;
   }
 }

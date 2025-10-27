@@ -1,10 +1,3 @@
-import {
-  forwardRef,
-  useRef,
-  useEffect,
-  useImperativeHandle,
-  useCallback,
-} from "react";
 import styles from "../../styles/ExperienceCarousel.module.css";
 import animelogo33 from "../../assets/animelogo33.png";
 import northwesternmutual from "../../assets/northwestern-mutual.jpeg";
@@ -91,151 +84,85 @@ export const experiences = [
   },
 ];
 
-const ExperienceCarousel = forwardRef(
-  ({ activeIndex, setActiveIndex }, ref) => {
-    const containerRef = useRef(null);
-    const cardRefs = useRef([]);
-    const isProgrammaticScrollRef = useRef(false);
-    const resetProgrammaticScrollTimeout = useRef(null);
+export default function ExperienceCarousel({ activeIndex, setActiveIndex }) {
+  const totalExperiences = experiences.length;
+  const safeIndex = Math.min(
+    Math.max(activeIndex ?? 0, 0),
+    Math.max(totalExperiences - 1, 0)
+  );
+  const experience = experiences[safeIndex];
 
-    const scrollToCard = useCallback((index, behavior = "smooth") => {
-      const container = containerRef.current;
-      const card = cardRefs.current[index];
-      if (!container || !card) return;
-
-      const containerRect = container.getBoundingClientRect();
-      const cardRect = card.getBoundingClientRect();
-      const target =
-        container.scrollLeft +
-        (cardRect.left - containerRect.left) -
-        (containerRect.width - cardRect.width) / 2;
-
-      if (Math.abs(container.scrollLeft - target) < 1) return;
-
-      isProgrammaticScrollRef.current = true;
-      container.scrollTo({ left: target, behavior });
-
-      if (resetProgrammaticScrollTimeout.current) {
-        clearTimeout(resetProgrammaticScrollTimeout.current);
-      }
-      resetProgrammaticScrollTimeout.current = window.setTimeout(
-        () => {
-          isProgrammaticScrollRef.current = false;
-        },
-        behavior === "smooth" ? 400 : 0
-      );
-    }, []);
-
-    useImperativeHandle(ref, () => ({
-      scrollToIndex: (index) => {
-        scrollToCard(index);
-      },
-    }));
-
-    // 🔧 Initial scroll fix — ensures 2025 (index 0) centers after mount
-    useEffect(() => {
-      // Wait for layout paint to stabilize (two animation frames)
-      const raf1 = requestAnimationFrame(() => {
-        const raf2 = requestAnimationFrame(() => {
-          scrollToCard(0, "auto");
-        });
-        return () => cancelAnimationFrame(raf2);
-      });
-      return () => cancelAnimationFrame(raf1);
-    }, []);
-
-    useEffect(() => {
-      const frame = requestAnimationFrame(() => {
-        scrollToCard(activeIndex, "smooth");
-      });
-
-      return () => {
-        cancelAnimationFrame(frame);
-        if (resetProgrammaticScrollTimeout.current) {
-          clearTimeout(resetProgrammaticScrollTimeout.current);
-        }
-      };
-    }, [activeIndex, scrollToCard]);
-
-    useEffect(() => {
-      const container = containerRef.current;
-      if (!container) return;
-
-      let animationFrame = null;
-
-      const handleScroll = () => {
-        if (isProgrammaticScrollRef.current) return;
-
-        if (animationFrame) cancelAnimationFrame(animationFrame);
-        animationFrame = requestAnimationFrame(() => {
-          const containerRect = container.getBoundingClientRect();
-          const center = container.scrollLeft + containerRect.width / 2;
-
-          let closestIndex = 0;
-          let minDistance = Infinity;
-
-          cardRefs.current.forEach((card, index) => {
-            if (!card) return;
-            const cardRect = card.getBoundingClientRect();
-            const cardCenter =
-              container.scrollLeft +
-              (cardRect.left - containerRect.left) +
-              cardRect.width / 2;
-            const distance = Math.abs(cardCenter - center);
-
-            if (distance < minDistance) {
-              minDistance = distance;
-              closestIndex = index;
-            }
-          });
-
-          if (closestIndex !== activeIndex) {
-            setActiveIndex(closestIndex);
-          }
-        });
-      };
-
-      container.addEventListener("scroll", handleScroll, { passive: true });
-      handleScroll();
-
-      return () => {
-        container.removeEventListener("scroll", handleScroll);
-        if (animationFrame) cancelAnimationFrame(animationFrame);
-      };
-    }, [activeIndex, setActiveIndex]);
-
-    console.log("Container:", containerRef.current);
-    console.log("Cards:", cardRefs.current);
-
-    return (
-      <div ref={containerRef} className={styles.carousel}>
-        {experiences.map((exp, i) => (
-          <div
-            key={exp.year + exp.title}
-            ref={(node) => {
-              cardRefs.current[i] = node;
-            }}
-            className={`${styles.card} ${
-              activeIndex === i ? styles.activeCard : ""
-            }`}>
-            <h2 className={styles.year}>{exp.year}</h2>
-            <h3 className={styles.title}>{exp.title}</h3>
-            <div className={styles.bubbles}>
-              {exp.bubbles.map((b, index) => (
-                <span key={index} className={styles.bubble}>
-                  {b}
-                </span>
-              ))}
-            </div>
-            <p className={styles.description}>{exp.description}</p>
-            {exp.photo && (
-              <img src={exp.photo} alt={exp.title} className={styles.photo} />
-            )}
-          </div>
-        ))}
-      </div>
-    );
+  if (!experience) {
+    return null;
   }
-);
 
-export default ExperienceCarousel;
+  const showPrevious = safeIndex > 0;
+  const showNext = safeIndex < totalExperiences - 1;
+
+  const handlePrevious = () => {
+    if (!showPrevious) return;
+    setActiveIndex((current) => Math.max((current ?? safeIndex) - 1, 0));
+  };
+
+  const handleNext = () => {
+    if (!showNext) return;
+    setActiveIndex((current) =>
+      Math.min((current ?? safeIndex) + 1, totalExperiences - 1)
+    );
+  };
+
+  return (
+    <div className={styles.carousel}>
+      <button
+        type="button"
+        className={styles.navButton}
+        onClick={handlePrevious}
+        disabled={!showPrevious}
+        aria-label="View previous experience"
+      >
+        <span aria-hidden="true">←</span>
+      </button>
+
+      <article className={styles.card}>
+        <header className={styles.cardHeader}>
+          <p className={styles.year}>{experience.year}</p>
+          <h2 className={styles.title}>{experience.title}</h2>
+        </header>
+
+        <div className={styles.bubbles}>
+          {experience.bubbles.map((bubble, index) => (
+            <span key={`${bubble}-${index}`} className={styles.bubble}>
+              {bubble}
+            </span>
+          ))}
+        </div>
+
+        <p className={styles.description}>{experience.description}</p>
+
+        {experience.photo ? (
+          <img
+            src={experience.photo}
+            alt={experience.title}
+            className={styles.photo}
+          />
+        ) : null}
+
+        <footer className={styles.footer}>
+          <span className={styles.counter}>
+            {safeIndex + 1} / {totalExperiences}
+          </span>
+        </footer>
+      </article>
+
+      <button
+        type="button"
+        className={styles.navButton}
+        onClick={handleNext}
+        disabled={!showNext}
+        aria-label="View next experience"
+      >
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  );
+}

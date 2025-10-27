@@ -1,21 +1,31 @@
 import styles from "../../styles/HorizontalTimeline.module.css";
 
 export default function HorizontalTimeline({ years, activeIndex, onDotClick }) {
+  if (!years?.length) {
+    return null;
+  }
+
   return (
-    <div className={styles.timelineWrapper}>
-      <div className={styles.line} />
-      <div className={styles.dotsContainer}>
-        {years.map((year, index) => (
-          <div
-            key={`${year}-${index}`}
-            className={`${styles.dot} ${
-              activeIndex === index ? styles.activeDot : ""
-            }`}
-            onClick={() => onDotClick(index)}>
-            <span className={styles.year}>{year}</span>
-          </div>
-        ))}
-      </div>
-    </div>
+    <nav className={styles.timeline} aria-label="Experience timeline">
+      <ol className={styles.yearList}>
+        {years.map((year, index) => {
+          const isActive = index === activeIndex;
+          return (
+            <li key={`${year}-${index}`} className={styles.yearItem}>
+              <button
+                type="button"
+                onClick={() => onDotClick(index)}
+                className={`${styles.yearButton} ${
+                  isActive ? styles.activeYearButton : ""
+                }`}
+                aria-current={isActive ? "step" : undefined}
+              >
+                <span className={styles.yearLabel}>{year}</span>
+              </button>
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
   );
 }

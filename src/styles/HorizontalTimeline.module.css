@@ -1,55 +1,101 @@
-.timelineWrapper {
+.timeline {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  margin-bottom: 2rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
 }
 
-.line {
+.yearList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2.5vw, 1.75rem);
+  position: relative;
+}
+
+.yearList::before {
+  content: "";
   position: absolute;
   top: 50%;
-  width: 60%;
-  height: 3px;
-  background: #daa803;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.18);
   transform: translateY(-50%);
   z-index: 0;
 }
 
-.dotsContainer {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
+.yearItem {
   position: relative;
   z-index: 1;
 }
 
-.dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #444;
-  border: 2px solid #daa803;
-  position: relative;
+.yearButton {
+  appearance: none;
+  background: #1f1f1f;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: #d5d5d5;
   cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.85rem;
+  position: relative;
+  transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    background 0.2s ease;
 }
 
-.dot:hover {
-  transform: scale(1.2);
-}
-
-.activeDot {
-  background: #daa803;
-}
-
-.year {
+.yearButton::after {
+  content: "";
   position: absolute;
-  top: 150%;
   left: 50%;
+  bottom: -0.75rem;
   transform: translateX(-50%);
-  color: #000;
-  font-size: 0.8rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #4db5ff;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.yearButton:hover {
+  color: #ffffff;
+  border-color: rgba(77, 181, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.activeYearButton {
+  background: rgba(77, 181, 255, 0.15);
+  border-color: #4db5ff;
+  color: #ffffff;
+}
+
+.activeYearButton::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.yearLabel {
   white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .timeline {
+    overflow-x: auto;
+    padding: 0 1rem;
+  }
+
+  .yearList {
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .yearList::before {
+    left: 0.5rem;
+    right: 0.5rem;
+  }
 }
