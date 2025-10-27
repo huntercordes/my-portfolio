@@ -4,7 +4,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import selfie1 from "../../assets/madsselfie.jpg";
 import selfie2 from "../../assets/injuryselfie.jpg";
 import selfie3 from "../../assets/agfselfie.jpg";
-import selfie4 from "../../assets/waterpoloselfie.jpg";
+import selfie4 from "../../assets/waterpoloselfie.JPG";
 import selfie5 from "../../assets/boatselfie.jpeg";
 import selfie6 from "../../assets/lacabraselfie.jpg";
 
