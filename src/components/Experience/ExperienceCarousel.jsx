@@ -1,10 +1,4 @@
-import {
-  forwardRef,
-  useRef,
-  useEffect,
-  useImperativeHandle,
-  useCallback,
-} from "react";
+import { forwardRef, useRef, useEffect, useImperativeHandle } from "react";
 import styles from "../../styles/ExperienceCarousel.module.css";
 import animelogo33 from "../../assets/animelogo33.png";
 import northwesternmutual from "../../assets/northwestern-mutual.jpeg";
@@ -93,47 +87,21 @@ export const experiences = [
 
 const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => {
   const containerRef = useRef(null);
-  const skipNextSyncRef = useRef(false);
-  const initialIndexRef = useRef(activeIndex);
-
-  const scrollToCard = useCallback((index, behavior = "smooth") => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const cards = container.children;
-    if (!cards || !cards[index]) return;
-
-    const card = cards[index];
-    const target =
-      card.offsetLeft - container.offsetWidth / 2 + card.offsetWidth / 2;
-
-    if (Math.abs(container.scrollLeft - target) < 1) return;
-
-    container.scrollTo({ left: target, behavior });
-  }, []);
 
   useImperativeHandle(ref, () => ({
     scrollToIndex: (index) => {
-      scrollToCard(index);
+      const container = containerRef.current;
+      if (!container) return;
+      const cards = container.children;
+      if (!cards || !cards[index]) return;
+
+      const card = cards[index];
+      const scrollX =
+        card.offsetLeft - container.offsetWidth / 2 + card.offsetWidth / 2;
+
+      container.scrollTo({ left: scrollX, behavior: "smooth" });
     },
   }));
-
-  useEffect(() => {
-    const frame = requestAnimationFrame(() => {
-      scrollToCard(initialIndexRef.current, "auto");
-    });
-
-    return () => cancelAnimationFrame(frame);
-  }, [scrollToCard]);
-
-  useEffect(() => {
-    if (skipNextSyncRef.current) {
-      skipNextSyncRef.current = false;
-      return;
-    }
-
-    scrollToCard(activeIndex);
-  }, [activeIndex, scrollToCard]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -155,10 +123,7 @@ const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => 
           : prev;
       }, 0);
 
-      if (closest !== activeIndex) {
-        skipNextSyncRef.current = true;
-        setActiveIndex(closest);
-      }
+      setActiveIndex(closest);
     };
 
     container.addEventListener("scroll", handleScroll, { passive: true });
@@ -167,7 +132,7 @@ const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => 
     return () => {
       container.removeEventListener("scroll", handleScroll);
     };
-  }, [activeIndex, setActiveIndex]);
+  }, [setActiveIndex]);
 
   return (
     <div ref={containerRef} className={styles.carousel}>
