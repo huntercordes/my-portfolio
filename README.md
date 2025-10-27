@@ -10,3 +10,24 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Publishing updates to GitHub
+
+The repository now uses the default branch name `main`. If you ever wonder which branch you are on, list them with:
+
+```bash
+git branch
+```
+
+You should see only `main`, with an asterisk indicating the current branch. Once you confirm that, follow these steps to publish the carousel fixes to GitHub and sync them back into VS Code:
+
+1. Commit any local edits and double-check the branch with `git status -sb` (it should report `## main`).
+2. Push the branch once with tracking enabled:
+   ```bash
+   git push -u origin main
+   ```
+3. Open a pull request (or merge directly) from `main` on GitHub.
+4. After merging, pull the updates back into VS Code:
+   ```bash
+   git pull origin main
+   ```
