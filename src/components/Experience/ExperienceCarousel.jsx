@@ -91,150 +91,144 @@ export const experiences = [
   },
 ];
 
-const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => {
-  const containerRef = useRef(null);
-  const cardRefs = useRef([]);
-  const isProgrammaticScrollRef = useRef(false);
-  const resetProgrammaticScrollTimeout = useRef(null);
+const ExperienceCarousel = forwardRef(
+  ({ activeIndex, setActiveIndex }, ref) => {
+    const containerRef = useRef(null);
+    const cardRefs = useRef([]);
+    const isProgrammaticScrollRef = useRef(false);
+    const resetProgrammaticScrollTimeout = useRef(null);
 
-  const scrollToCard = useCallback((index, behavior = "smooth") => {
-    const container = containerRef.current;
-    const card = cardRefs.current[index];
+    const scrollToCard = useCallback((index, behavior = "smooth") => {
+      const container = containerRef.current;
+      const card = cardRefs.current[index];
+      if (!container || !card) return;
 
-    if (!container || !card) {
-      return;
-    }
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const target =
+        container.scrollLeft +
+        (cardRect.left - containerRect.left) -
+        (containerRect.width - cardRect.width) / 2;
 
-    const containerRect = container.getBoundingClientRect();
-    const cardRect = card.getBoundingClientRect();
+      if (Math.abs(container.scrollLeft - target) < 1) return;
 
-    const target =
-      container.scrollLeft +
-      (cardRect.left - containerRect.left) -
-      (containerRect.width - cardRect.width) / 2;
+      isProgrammaticScrollRef.current = true;
+      container.scrollTo({ left: target, behavior });
 
-    if (Math.abs(container.scrollLeft - target) < 1) {
-      return;
-    }
-
-    isProgrammaticScrollRef.current = true;
-    container.scrollTo({ left: target, behavior });
-
-    if (resetProgrammaticScrollTimeout.current) {
-      clearTimeout(resetProgrammaticScrollTimeout.current);
-    }
-
-    resetProgrammaticScrollTimeout.current = window.setTimeout(() => {
-      isProgrammaticScrollRef.current = false;
-    }, behavior === "smooth" ? 400 : 0);
-  }, []);
-
-  useImperativeHandle(ref, () => ({
-    scrollToIndex: (index) => {
-      scrollToCard(index);
-    },
-  }));
-
-  useEffect(() => {
-    const frame = requestAnimationFrame(() => {
-      scrollToCard(activeIndex, "auto");
-    });
-
-    return () => {
-      cancelAnimationFrame(frame);
       if (resetProgrammaticScrollTimeout.current) {
         clearTimeout(resetProgrammaticScrollTimeout.current);
       }
-    };
-  }, [activeIndex, scrollToCard]);
+      resetProgrammaticScrollTimeout.current = window.setTimeout(
+        () => {
+          isProgrammaticScrollRef.current = false;
+        },
+        behavior === "smooth" ? 400 : 0
+      );
+    }, []);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) {
-      return undefined;
-    }
+    useImperativeHandle(ref, () => ({
+      scrollToIndex: (index) => {
+        scrollToCard(index);
+      },
+    }));
 
-    let animationFrame = null;
+    // 🔧 Initial scroll fix — ensures 2025 (index 0) centers after mount
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        scrollToCard(activeIndex, "auto");
+      }, 100);
+      return () => clearTimeout(timeout);
+    }, []); // run once on mount
 
-    const handleScroll = () => {
-      if (isProgrammaticScrollRef.current) {
-        return;
-      }
+    useEffect(() => {
+      const frame = requestAnimationFrame(() => {
+        scrollToCard(activeIndex, "smooth");
+      });
 
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
+      return () => {
+        cancelAnimationFrame(frame);
+        if (resetProgrammaticScrollTimeout.current) {
+          clearTimeout(resetProgrammaticScrollTimeout.current);
+        }
+      };
+    }, [activeIndex, scrollToCard]);
 
-      animationFrame = requestAnimationFrame(() => {
-        const containerRect = container.getBoundingClientRect();
-        const center = container.scrollLeft + containerRect.width / 2;
+    useEffect(() => {
+      const container = containerRef.current;
+      if (!container) return;
 
-        let closestIndex = 0;
-        let minDistance = Infinity;
+      let animationFrame = null;
 
-        cardRefs.current.forEach((card, index) => {
-          if (!card) {
-            return;
-          }
+      const handleScroll = () => {
+        if (isProgrammaticScrollRef.current) return;
 
-          const cardRect = card.getBoundingClientRect();
-          const cardCenter =
-            container.scrollLeft +
-            (cardRect.left - containerRect.left) +
-            cardRect.width / 2;
-          const distance = Math.abs(cardCenter - center);
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+        animationFrame = requestAnimationFrame(() => {
+          const containerRect = container.getBoundingClientRect();
+          const center = container.scrollLeft + containerRect.width / 2;
 
-          if (distance < minDistance) {
-            minDistance = distance;
-            closestIndex = index;
+          let closestIndex = 0;
+          let minDistance = Infinity;
+
+          cardRefs.current.forEach((card, index) => {
+            if (!card) return;
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter =
+              container.scrollLeft +
+              (cardRect.left - containerRect.left) +
+              cardRect.width / 2;
+            const distance = Math.abs(cardCenter - center);
+
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestIndex = index;
+            }
+          });
+
+          if (closestIndex !== activeIndex) {
+            setActiveIndex(closestIndex);
           }
         });
+      };
 
-        if (closestIndex !== activeIndex) {
-          setActiveIndex(closestIndex);
-        }
-      });
-    };
+      container.addEventListener("scroll", handleScroll, { passive: true });
+      handleScroll();
 
-    container.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+      return () => {
+        container.removeEventListener("scroll", handleScroll);
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+      };
+    }, [activeIndex, setActiveIndex]);
 
-    return () => {
-      container.removeEventListener("scroll", handleScroll);
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
-    };
-  }, [activeIndex, setActiveIndex]);
-
-  return (
-    <div ref={containerRef} className={styles.carousel}>
-      {experiences.map((exp, i) => (
-        <div
-          key={exp.year + exp.title}
-          ref={(node) => {
-            cardRefs.current[i] = node;
-          }}
-          className={`${styles.card} ${
-            activeIndex === i ? styles.activeCard : ""
-          }`}>
-          <h2 className={styles.year}>{exp.year}</h2>
-          <h3 className={styles.title}>{exp.title}</h3>
-          <div className={styles.bubbles}>
-            {exp.bubbles.map((b, index) => (
-              <span key={index} className={styles.bubble}>
-                {b}
-              </span>
-            ))}
+    return (
+      <div ref={containerRef} className={styles.carousel}>
+        {experiences.map((exp, i) => (
+          <div
+            key={exp.year + exp.title}
+            ref={(node) => {
+              cardRefs.current[i] = node;
+            }}
+            className={`${styles.card} ${
+              activeIndex === i ? styles.activeCard : ""
+            }`}>
+            <h2 className={styles.year}>{exp.year}</h2>
+            <h3 className={styles.title}>{exp.title}</h3>
+            <div className={styles.bubbles}>
+              {exp.bubbles.map((b, index) => (
+                <span key={index} className={styles.bubble}>
+                  {b}
+                </span>
+              ))}
+            </div>
+            <p className={styles.description}>{exp.description}</p>
+            {exp.photo && (
+              <img src={exp.photo} alt={exp.title} className={styles.photo} />
+            )}
           </div>
-          <p className={styles.description}>{exp.description}</p>
-          {exp.photo && (
-            <img src={exp.photo} alt={exp.title} className={styles.photo} />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-});
+        ))}
+      </div>
+    );
+  }
+);
 
 export default ExperienceCarousel;
