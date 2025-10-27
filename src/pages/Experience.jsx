@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import HorizontalTimeline from "../components/Experience/HorizontalTimeline";
 import ExperienceCarousel, {
   experiences,
