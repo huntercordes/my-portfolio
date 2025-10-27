@@ -84,25 +84,131 @@ export const experiences = [
   },
 ];
 
-export default function ExperienceCarousel({ activeIndex, setActiveIndex }) {
-  const totalExperiences = experiences.length;
-  const safeIndex = Math.min(
-    Math.max(activeIndex ?? 0, 0),
-    Math.max(totalExperiences - 1, 0)
-  );
-  const experience = experiences[safeIndex];
+const ExperienceCarousel = forwardRef(
+  ({ activeIndex, setActiveIndex }, ref) => {
+    const containerRef = useRef(null);
+    const cardRefs = useRef([]);
+    const isProgrammaticScrollRef = useRef(false);
+    const resetProgrammaticScrollTimeout = useRef(null);
+    const activeIndexRef = useRef(activeIndex);
 
-  if (!experience) {
-    return null;
-  }
+    useEffect(() => {
+      activeIndexRef.current = activeIndex;
+    }, [activeIndex]);
 
-  const showPrevious = safeIndex > 0;
-  const showNext = safeIndex < totalExperiences - 1;
+    const scrollToCard = useCallback((index, behavior = "smooth") => {
+      const container = containerRef.current;
+      const card = cardRefs.current[index];
+      if (!container || !card) return;
 
-  const handlePrevious = () => {
-    if (!showPrevious) return;
-    setActiveIndex((current) => Math.max((current ?? safeIndex) - 1, 0));
-  };
+      const containerWidth = container.clientWidth;
+      const cardWidth = card.clientWidth;
+      const cardOffset = card.offsetLeft;
+      const maxScrollLeft = container.scrollWidth - containerWidth;
+      const target = cardOffset - (containerWidth - cardWidth) / 2;
+      const safeTarget = Math.min(Math.max(target, 0), maxScrollLeft);
+
+      if (Math.abs(container.scrollLeft - safeTarget) < 1) return;
+
+      isProgrammaticScrollRef.current = true;
+      container.scrollTo({ left: safeTarget, behavior });
+
+      if (resetProgrammaticScrollTimeout.current) {
+        clearTimeout(resetProgrammaticScrollTimeout.current);
+      }
+      resetProgrammaticScrollTimeout.current = window.setTimeout(
+        () => {
+          isProgrammaticScrollRef.current = false;
+        },
+        behavior === "smooth" ? 450 : 20
+      );
+    }, []);
+
+    useImperativeHandle(ref, () => ({
+      scrollToIndex: (index) => {
+        scrollToCard(index);
+      },
+    }));
+
+    useEffect(() => {
+      const frame = requestAnimationFrame(() => {
+        scrollToCard(activeIndex, "smooth");
+      });
+
+      return () => {
+        cancelAnimationFrame(frame);
+        if (resetProgrammaticScrollTimeout.current) {
+          clearTimeout(resetProgrammaticScrollTimeout.current);
+        }
+      };
+    }, [activeIndex, scrollToCard]);
+
+    useEffect(() => {
+      return () => {
+        if (resetProgrammaticScrollTimeout.current) {
+          clearTimeout(resetProgrammaticScrollTimeout.current);
+        }
+      };
+    }, []);
+
+    useEffect(() => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      let animationFrame = null;
+
+      const handleScroll = () => {
+        if (isProgrammaticScrollRef.current) return;
+        if (!cardRefs.current.length) return;
+
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+        animationFrame = requestAnimationFrame(() => {
+          const containerRect = container.getBoundingClientRect();
+          const center = container.scrollLeft + containerRect.width / 2;
+
+          let closestIndex = 0;
+          let minDistance = Infinity;
+
+          cardRefs.current.forEach((card, index) => {
+            if (!card) return;
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter =
+              container.scrollLeft +
+              (cardRect.left - containerRect.left) +
+              cardRect.width / 2;
+            const distance = Math.abs(cardCenter - center);
+
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestIndex = index;
+            }
+          });
+
+          if (closestIndex !== activeIndexRef.current) {
+            setActiveIndex(closestIndex);
+          }
+        });
+      };
+
+      container.addEventListener("scroll", handleScroll, { passive: true });
+      handleScroll();
+
+      return () => {
+        container.removeEventListener("scroll", handleScroll);
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+      };
+    }, [setActiveIndex]);
+
+    useEffect(() => {
+      const handleResize = () => {
+        scrollToCard(activeIndexRef.current, "auto");
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, [scrollToCard]);
 
   const handleNext = () => {
     if (!showNext) return;

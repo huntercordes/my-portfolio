@@ -1,11 +1,28 @@
 .carousel {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  --card-width: clamp(340px, 52vw, 560px);
+  --side-padding: max(calc((100vw - var(--card-width)) / 2), 8vw);
+
+  display: flex;
+  flex-wrap: nowrap;
   align-items: center;
-  gap: 1.5rem;
-  width: min(100%, 960px);
-  margin: 0 auto 3rem;
-  padding: 1.5rem;
+
+  /* ► scrolling */
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  /* ► space so the first/last card can center */
+  padding: 0 var(--side-padding);
+  scroll-padding: var(--side-padding);
+
+  /* layout */
+  height: 80vh; /* below title/timeline */
+  column-gap: 2rem; /* spacing between cards */
   box-sizing: border-box;
 }
 
@@ -24,11 +41,18 @@
   transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
-.navButton:hover:not(:disabled) {
-  background: #2c2c2c;
-  border-color: #4db5ff;
-  transform: scale(1.05);
-}
+/* --- Cards: same size at every breakpoint --- */
+.card {
+  /* same width per card, guaranteed overflow => scroll */
+  flex: 0 0 var(--card-width);
+  aspect-ratio: 1 / 1.1; /* square-ish */
+  scroll-snap-align: center;
+
+  background: rgba(20, 20, 20, 0.85);
+  border-radius: 16px;
+  padding: 2rem;
+  color: #fff;
+  text-align: center;
 
 .navButton:disabled {
   cursor: not-allowed;
@@ -101,36 +125,45 @@
   width: 100%;
 }
 
-.footer {
-  display: flex;
-  justify-content: center;
-}
-
-.counter {
-  color: #9aa6b2;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+/* --- Responsive tweaks --- */
+@media (max-width: 1024px) {
+  .carousel {
+    --card-width: clamp(320px, 60vw, 540px);
+    --side-padding: max(calc((100vw - var(--card-width)) / 2), 10vw);
+  }
+  .card {
+    flex-basis: var(--card-width);
+  }
+  .description {
+    -webkit-line-clamp: 6;
+  }
 }
 
 @media (max-width: 900px) {
   .carousel {
-    width: min(100%, 720px);
-    gap: 1rem;
+    --card-width: 80vw;
+    --side-padding: max(calc((100vw - var(--card-width)) / 2), 8vw);
+    height: 75vh;
   }
-
-  .navButton {
-    width: 2.75rem;
-    height: 2.75rem;
+  .card {
+    flex-basis: var(--card-width);
+    padding: 1.6rem;
+    aspect-ratio: 1 / 1.15;
+  }
+  .photo {
+    max-width: 300px;
+    max-height: 28vh;
+  }
+  .description {
+    -webkit-line-clamp: 5;
   }
 }
 
 @media (max-width: 640px) {
   .carousel {
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    justify-items: center;
-    gap: 1.25rem;
+    --card-width: 90vw;
+    --side-padding: max(calc((100vw - var(--card-width)) / 2), 6vw);
+    height: 72vh;
   }
 
   .navButton {
@@ -139,7 +172,9 @@
   }
 
   .card {
-    width: min(100%, 420px);
+    flex-basis: var(--card-width);
+    padding: 1.2rem;
+    aspect-ratio: 1 / 1.22;
   }
 
   .footer {
