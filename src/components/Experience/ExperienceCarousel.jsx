@@ -1,4 +1,10 @@
-import { forwardRef, useRef, useEffect, useImperativeHandle, useCallback } from "react";
+import {
+  forwardRef,
+  useRef,
+  useEffect,
+  useImperativeHandle,
+  useCallback,
+} from "react";
 import styles from "../../styles/ExperienceCarousel.module.css";
 import animelogo33 from "../../assets/animelogo33.png";
 import northwesternmutual from "../../assets/northwestern-mutual.jpeg";
@@ -89,9 +95,7 @@ const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => 
   const containerRef = useRef(null);
   const cardRefs = useRef([]);
   const isProgrammaticScrollRef = useRef(false);
-  const programmaticTargetRef = useRef(0);
-  const internalUpdateRef = useRef(false);
-  const isInitialRenderRef = useRef(true);
+  const resetProgrammaticScrollTimeout = useRef(null);
 
   const scrollToCard = useCallback((index, behavior = "smooth") => {
     const container = containerRef.current;
@@ -101,19 +105,28 @@ const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => 
       return;
     }
 
-    const containerWidth = container.clientWidth;
-    const cardWidth = card.clientWidth;
-    const cardLeft = card.offsetLeft;
+    const containerRect = container.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
 
-    const target = cardLeft - (containerWidth - cardWidth) / 2;
+    const target =
+      container.scrollLeft +
+      (cardRect.left - containerRect.left) -
+      (containerRect.width - cardRect.width) / 2;
 
     if (Math.abs(container.scrollLeft - target) < 1) {
       return;
     }
 
     isProgrammaticScrollRef.current = true;
-    programmaticTargetRef.current = target;
     container.scrollTo({ left: target, behavior });
+
+    if (resetProgrammaticScrollTimeout.current) {
+      clearTimeout(resetProgrammaticScrollTimeout.current);
+    }
+
+    resetProgrammaticScrollTimeout.current = window.setTimeout(() => {
+      isProgrammaticScrollRef.current = false;
+    }, behavior === "smooth" ? 400 : 0);
   }, []);
 
   useImperativeHandle(ref, () => ({
@@ -121,6 +134,19 @@ const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => 
       scrollToCard(index);
     },
   }));
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      scrollToCard(activeIndex, "auto");
+    });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      if (resetProgrammaticScrollTimeout.current) {
+        clearTimeout(resetProgrammaticScrollTimeout.current);
+      }
+    };
+  }, [activeIndex, scrollToCard]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -131,23 +157,17 @@ const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => 
     let animationFrame = null;
 
     const handleScroll = () => {
+      if (isProgrammaticScrollRef.current) {
+        return;
+      }
+
       if (animationFrame) {
         cancelAnimationFrame(animationFrame);
       }
 
       animationFrame = requestAnimationFrame(() => {
-        const { scrollLeft, clientWidth } = container;
-
-        if (isProgrammaticScrollRef.current) {
-          const distance = Math.abs(scrollLeft - programmaticTargetRef.current);
-          if (distance > 1) {
-            return;
-          }
-
-          isProgrammaticScrollRef.current = false;
-        }
-
-        const containerCenter = scrollLeft + clientWidth / 2;
+        const containerRect = container.getBoundingClientRect();
+        const center = container.scrollLeft + containerRect.width / 2;
 
         let closestIndex = 0;
         let minDistance = Infinity;
@@ -157,8 +177,12 @@ const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => 
             return;
           }
 
-          const cardCenter = card.offsetLeft + card.clientWidth / 2;
-          const distance = Math.abs(cardCenter - containerCenter);
+          const cardRect = card.getBoundingClientRect();
+          const cardCenter =
+            container.scrollLeft +
+            (cardRect.left - containerRect.left) +
+            cardRect.width / 2;
+          const distance = Math.abs(cardCenter - center);
 
           if (distance < minDistance) {
             minDistance = distance;
@@ -167,7 +191,6 @@ const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => 
         });
 
         if (closestIndex !== activeIndex) {
-          internalUpdateRef.current = true;
           setActiveIndex(closestIndex);
         }
       });
@@ -183,21 +206,6 @@ const ExperienceCarousel = forwardRef(({ activeIndex, setActiveIndex }, ref) => 
       }
     };
   }, [activeIndex, setActiveIndex]);
-
-  useEffect(() => {
-    if (isInitialRenderRef.current) {
-      isInitialRenderRef.current = false;
-      scrollToCard(activeIndex, "auto");
-      return;
-    }
-
-    if (internalUpdateRef.current) {
-      internalUpdateRef.current = false;
-      return;
-    }
-
-    scrollToCard(activeIndex);
-  }, [activeIndex, scrollToCard]);
 
   return (
     <div ref={containerRef} className={styles.carousel}>
