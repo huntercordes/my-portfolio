@@ -4,16 +4,18 @@
   align-items: center;
 
   /* ► scrolling */
-  overflow-x: auto;
-  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overflow-x: scroll;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
   /* ► space so the first/last card can center */
-  padding: 0 12vw;
-  scroll-padding: 12vw;
+  padding: 0 8vw;
+  scroll-padding: 8vw;
 
   /* layout */
   height: 80vh; /* below title/timeline */

@@ -134,11 +134,15 @@ const ExperienceCarousel = forwardRef(
 
     // 🔧 Initial scroll fix — ensures 2025 (index 0) centers after mount
     useEffect(() => {
-      const timeout = setTimeout(() => {
-        scrollToCard(activeIndex, "auto");
-      }, 100);
-      return () => clearTimeout(timeout);
-    }, []); // run once on mount
+      // Wait for layout paint to stabilize (two animation frames)
+      const raf1 = requestAnimationFrame(() => {
+        const raf2 = requestAnimationFrame(() => {
+          scrollToCard(0, "auto");
+        });
+        return () => cancelAnimationFrame(raf2);
+      });
+      return () => cancelAnimationFrame(raf1);
+    }, []);
 
     useEffect(() => {
       const frame = requestAnimationFrame(() => {
@@ -199,6 +203,9 @@ const ExperienceCarousel = forwardRef(
         if (animationFrame) cancelAnimationFrame(animationFrame);
       };
     }, [activeIndex, setActiveIndex]);
+
+    console.log("Container:", containerRef.current);
+    console.log("Cards:", cardRefs.current);
 
     return (
       <div ref={containerRef} className={styles.carousel}>
