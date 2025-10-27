@@ -1,60 +1,27 @@
-import { useState, useRef, useEffect } from "react";
-import Timeline from "../components/Experience/Timeline";
-import ExperienceContent from "../components/Experience/ExperienceContent";
+import { useState, useRef } from "react";
+import HorizontalTimeline from "../components/Experience/HorizontalTimeline";
+import ExperienceCarousel from "../components/Experience/ExperienceCarousel";
 import styles from "../styles/Experience.module.css";
 
-function Experience() {
-  const [section, setSection] = useState("after"); // Start with "after" (Since Denmark)
-  const [activeYear, setActiveYear] = useState(null);
-  const contentRefs = useRef({}); // store refs for each year
-  const videoRef = useRef(null);
-  const pageRef = useRef(null);
+export default function Experience() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef(null);
 
+  const years = [2025, 2024, 2023, 2022, 2021, 2020, 2018, 2017, 2016];
 
-  const handleDotClick = (year) => {
-    if (contentRefs.current[year]) {
-      contentRefs.current[year].scrollIntoView({ behavior: "smooth" });
+  const handleDotClick = (index) => {
+    if (carouselRef.current) {
+      const scrollX =
+        carouselRef.current.children[index].offsetLeft -
+        carouselRef.current.offsetWidth / 2 +
+        carouselRef.current.children[index].offsetWidth / 2;
+      carouselRef.current.scrollTo({ left: scrollX, behavior: "smooth" });
     }
   };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let visibleYear = null;
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            visibleYear = entry.target.dataset.year;
-          }
-        });
-        if (visibleYear) {
-          setActiveYear(Number(visibleYear));
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    Object.values(contentRefs.current).forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, [section]);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5; // optional slow playback
-    }
-  }, []);
-
   return (
-    <div ref={pageRef} className={styles.experiencePage}>
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        className={styles.backgroundVideo}
-      >
+    <div className={styles.experienceContainer}>
+      <video autoPlay loop muted className={styles.backgroundVideo}>
         <source
           src="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/darkbackground.mp4?alt=media&token=976b1a8a-2d63-4753-8e06-ab5164ff97cf"
           type="video/mp4"
@@ -65,17 +32,18 @@ function Experience() {
         My<span className={styles.highlight}>Experiences</span>
       </h1>
 
-      <Timeline
-        section={section}
-        setSection={setSection}
+      <HorizontalTimeline
+        years={years}
+        activeIndex={activeIndex}
         onDotClick={handleDotClick}
-        activeYear={activeYear}
-        scrollRef={pageRef}
       />
 
-      <ExperienceContent section={section} refs={contentRefs} />
+      <ExperienceCarousel
+        ref={carouselRef}
+        years={years}
+        activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
+      />
     </div>
   );
 }
-
-export default Experience;

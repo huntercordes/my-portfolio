@@ -1,141 +1,34 @@
-/* Experience.module.css */
-
-.experiencePage {
-  display: grid;
-  grid-template-columns:  6fr 1fr; /* left spacer, content, right timeline */
-  grid-template-rows: auto 1fr;       /* top title row, second row for content + timeline */
-  min-height: 100vh;
-  color: #fff;
-  position: relative;
-  overflow-x: hidden; /* prevent horizontal scroll */
-  overflow-y: auto;   /* allow vertical scrolling */
-  width: 100%;
-  padding: 0;
-  z-index: 1;
-}
-
-/* Title at top, spanning all columns */
-.pageTitle {
-  grid-column: 1 / -1;  /* span all columns */
-  grid-row: 1;           /* top row */
+.experienceContainer {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* no vertical scrolling */
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  font-size: 3rem;
-  font-weight: 700;
-  text-align: center;
+  justify-content: flex-start;
+  position: relative;
   color: #fff;
-  margin: 2rem 0; /* space above/below title */
-  padding: 0;
-    gap: 0.5ch; /* space between "My" and the span */
-
+  text-align: center;
+  background: #ffffff;
 }
 
-.highlight {
-  color: #4db5ff; /* accent color */
-}
-
-/* Background video */
 .backgroundVideo {
-  position: fixed; /* stays under navbar/content */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1; /* behind everything */
+  z-index: -1;
 }
 
-/* Content area */
-.content {
-  grid-column: 2; /* center column */
-  grid-row: 2;    /* second row */
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  position: relative;
-  z-index: 1;
-}
-
-/* Timeline container */
-.timeline {
-  grid-column: 3; /* right column */
-  grid-row: 2;    /* second row */
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  z-index: 1;
-}
-
-/* Vertical line */
-.timelineLine {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background-color: #444;
-  z-index: 0;
-}
-
-/* Dots */
-.timelineDot {
-  position: relative;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background-color: #fff;
-  z-index: 1;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.timelineDot:hover {
-  transform: scale(1.2);
-  background-color: #4db5ff;
-}
-
-/* Year label */
-.timelineYear {
-  margin-left: 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #aaa;
-}
-
-/* Tooltip on hover */
-.timelineDot::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: -220%;
-  top: 50%;
-  transform: translateY(-50%);
-  white-space: nowrap;
-  background: #111;
+.pageTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 1.5rem 0;
   color: #fff;
-  font-size: 0.85rem;
-  padding: 0.4rem 0.7rem;
-  border-radius: 6px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
 }
 
-.timelineDot:hover::after {
-  opacity: 1;
-}
-
-/* Arrows */
-.timelineArrow {
-  font-size: 2rem;
-  color: #fff;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  z-index: 2;
-}
-
-.timelineArrow:hover {
+.highlight {
   color: #4db5ff;
 }

@@ -5,6 +5,7 @@
   background: transparent; /* let the global background show through */
   display: flex;
   flex-direction: column;
+  background: #ffffff;
 }
 
 .snapSection {
@@ -30,4 +31,11 @@
   height: 100%;
   object-fit: cover;
   z-index: -1; /* behind everything */
+}
+#introduction {
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  overflow: visible !important;
+  height: auto !important;
+  min-height: auto !important;
 }

@@ -1,0 +1,55 @@
+.timelineWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.line {
+  position: absolute;
+  top: 50%;
+  width: 60%;
+  height: 3px;
+  background: #daa803;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #444;
+  border: 2px solid #daa803;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.dot:hover {
+  transform: scale(1.2);
+}
+
+.activeDot {
+  background: #daa803;
+}
+
+.year {
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #000;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
