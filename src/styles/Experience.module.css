@@ -1,7 +1,10 @@
 .experienceContainer {
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* no vertical scrolling */
+  /* Allow carousel to scroll while page remains static */
+  overflow-x: hidden;
+  overflow-y: auto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
