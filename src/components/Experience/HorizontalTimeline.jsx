@@ -7,7 +7,7 @@ export default function HorizontalTimeline({ years, activeIndex, onDotClick }) {
       <div className={styles.dotsContainer}>
         {years.map((year, index) => (
           <div
-            key={year}
+            key={`${year}-${index}`}
             className={`${styles.dot} ${
               activeIndex === index ? styles.activeDot : ""
             }`}
