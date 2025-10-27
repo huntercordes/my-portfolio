@@ -97,23 +97,28 @@ const ExperienceCarousel = forwardRef(
     const cardRefs = useRef([]);
     const isProgrammaticScrollRef = useRef(false);
     const resetProgrammaticScrollTimeout = useRef(null);
+    const activeIndexRef = useRef(activeIndex);
+
+    useEffect(() => {
+      activeIndexRef.current = activeIndex;
+    }, [activeIndex]);
 
     const scrollToCard = useCallback((index, behavior = "smooth") => {
       const container = containerRef.current;
       const card = cardRefs.current[index];
       if (!container || !card) return;
 
-      const containerRect = container.getBoundingClientRect();
-      const cardRect = card.getBoundingClientRect();
-      const target =
-        container.scrollLeft +
-        (cardRect.left - containerRect.left) -
-        (containerRect.width - cardRect.width) / 2;
+      const containerWidth = container.clientWidth;
+      const cardWidth = card.clientWidth;
+      const cardOffset = card.offsetLeft;
+      const maxScrollLeft = container.scrollWidth - containerWidth;
+      const target = cardOffset - (containerWidth - cardWidth) / 2;
+      const safeTarget = Math.min(Math.max(target, 0), maxScrollLeft);
 
-      if (Math.abs(container.scrollLeft - target) < 1) return;
+      if (Math.abs(container.scrollLeft - safeTarget) < 1) return;
 
       isProgrammaticScrollRef.current = true;
-      container.scrollTo({ left: target, behavior });
+      container.scrollTo({ left: safeTarget, behavior });
 
       if (resetProgrammaticScrollTimeout.current) {
         clearTimeout(resetProgrammaticScrollTimeout.current);
@@ -122,7 +127,7 @@ const ExperienceCarousel = forwardRef(
         () => {
           isProgrammaticScrollRef.current = false;
         },
-        behavior === "smooth" ? 400 : 0
+        behavior === "smooth" ? 450 : 20
       );
     }, []);
 
@@ -131,18 +136,6 @@ const ExperienceCarousel = forwardRef(
         scrollToCard(index);
       },
     }));
-
-    // 🔧 Initial scroll fix — ensures 2025 (index 0) centers after mount
-    useEffect(() => {
-      // Wait for layout paint to stabilize (two animation frames)
-      const raf1 = requestAnimationFrame(() => {
-        const raf2 = requestAnimationFrame(() => {
-          scrollToCard(0, "auto");
-        });
-        return () => cancelAnimationFrame(raf2);
-      });
-      return () => cancelAnimationFrame(raf1);
-    }, []);
 
     useEffect(() => {
       const frame = requestAnimationFrame(() => {
@@ -158,6 +151,14 @@ const ExperienceCarousel = forwardRef(
     }, [activeIndex, scrollToCard]);
 
     useEffect(() => {
+      return () => {
+        if (resetProgrammaticScrollTimeout.current) {
+          clearTimeout(resetProgrammaticScrollTimeout.current);
+        }
+      };
+    }, []);
+
+    useEffect(() => {
       const container = containerRef.current;
       if (!container) return;
 
@@ -165,6 +166,7 @@ const ExperienceCarousel = forwardRef(
 
       const handleScroll = () => {
         if (isProgrammaticScrollRef.current) return;
+        if (!cardRefs.current.length) return;
 
         if (animationFrame) cancelAnimationFrame(animationFrame);
         animationFrame = requestAnimationFrame(() => {
@@ -189,7 +191,7 @@ const ExperienceCarousel = forwardRef(
             }
           });
 
-          if (closestIndex !== activeIndex) {
+          if (closestIndex !== activeIndexRef.current) {
             setActiveIndex(closestIndex);
           }
         });
@@ -202,10 +204,18 @@ const ExperienceCarousel = forwardRef(
         container.removeEventListener("scroll", handleScroll);
         if (animationFrame) cancelAnimationFrame(animationFrame);
       };
-    }, [activeIndex, setActiveIndex]);
+    }, [setActiveIndex]);
 
-    console.log("Container:", containerRef.current);
-    console.log("Cards:", cardRefs.current);
+    useEffect(() => {
+      const handleResize = () => {
+        scrollToCard(activeIndexRef.current, "auto");
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, [scrollToCard]);
 
     return (
       <div ref={containerRef} className={styles.carousel}>

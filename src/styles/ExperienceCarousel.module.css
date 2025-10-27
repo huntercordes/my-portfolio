@@ -1,4 +1,7 @@
 .carousel {
+  --card-width: clamp(340px, 52vw, 560px);
+  --side-padding: max(calc((100vw - var(--card-width)) / 2), 8vw);
+
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -14,8 +17,8 @@
   -ms-overflow-style: none;
 
   /* ► space so the first/last card can center */
-  padding: 0 8vw;
-  scroll-padding: 8vw;
+  padding: 0 var(--side-padding);
+  scroll-padding: var(--side-padding);
 
   /* layout */
   height: 80vh; /* below title/timeline */
@@ -30,7 +33,7 @@
 /* --- Cards: same size at every breakpoint --- */
 .card {
   /* same width per card, guaranteed overflow => scroll */
-  flex: 0 0 clamp(340px, 52vw, 560px);
+  flex: 0 0 var(--card-width);
   aspect-ratio: 1 / 1.1; /* square-ish */
   scroll-snap-align: center;
 
@@ -115,11 +118,11 @@
 /* --- Responsive tweaks --- */
 @media (max-width: 1024px) {
   .carousel {
-    padding: 0 10vw;
-    scroll-padding: 10vw;
+    --card-width: clamp(320px, 60vw, 540px);
+    --side-padding: max(calc((100vw - var(--card-width)) / 2), 10vw);
   }
   .card {
-    flex-basis: clamp(320px, 60vw, 540px);
+    flex-basis: var(--card-width);
   }
   .description {
     -webkit-line-clamp: 6;
@@ -128,12 +131,12 @@
 
 @media (max-width: 768px) {
   .carousel {
-    padding: 0 8vw;
-    scroll-padding: 8vw;
+    --card-width: 80vw;
+    --side-padding: max(calc((100vw - var(--card-width)) / 2), 8vw);
     height: 75vh;
   }
   .card {
-    flex-basis: 80vw;
+    flex-basis: var(--card-width);
     padding: 1.6rem;
     aspect-ratio: 1 / 1.15;
   }
@@ -148,12 +151,12 @@
 
 @media (max-width: 480px) {
   .carousel {
-    padding: 0 6vw;
-    scroll-padding: 6vw;
+    --card-width: 90vw;
+    --side-padding: max(calc((100vw - var(--card-width)) / 2), 6vw);
     height: 72vh;
   }
   .card {
-    flex-basis: 90vw;
+    flex-basis: var(--card-width);
     padding: 1.2rem;
     aspect-ratio: 1 / 1.22;
   }
