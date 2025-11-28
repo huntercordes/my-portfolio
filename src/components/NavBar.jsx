@@ -133,23 +133,20 @@ function NavBar() {
         </div>
       </div>
       {showCVPopup && (
-        <div
-          className={styles.popupOverlay}
-          onClick={() => setShowCVPopup(false)}>
-          <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
-            <h2>Download CV</h2>
-            <p>You can download my CV below:</p>
-            <a
-              href="/path-to-your-cv.pdf"
-              download
-              className={styles.popupButton}>
-              Download CV
-            </a>
+        <div className={styles.cvOverlay} onClick={() => setShowCVPopup(false)}>
+          <div className={styles.cvPopup} onClick={(e) => e.stopPropagation()}>
             <button
-              className={styles.closeButton}
+              className={styles.cvCloseButton}
               onClick={() => setShowCVPopup(false)}>
-              Close
+              ✕
             </button>
+
+            {/* Embedded PDF viewer */}
+            <iframe
+              src={`${import.meta.env.BASE_URL}your-cv.pdf`}
+              title="My CV"
+              className={styles.cvFrame}
+            />
           </div>
         </div>
       )}

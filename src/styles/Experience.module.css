@@ -11,6 +11,32 @@
   z-index: 0; /* behind everything */
   pointer-events: none; /* prevents blocking interactions */
 }
+.updateMessage {
+  position: relative;
+  z-index: 5; /* ⬅️ FORCE TEXT ABOVE PixelBlast */
+  min-height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  padding: 2rem;
+  color: white; /* ensure visible */
+}
+
+.updateMessage h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.updateMessage p {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  max-width: 650px;
+  opacity: 0.9;
+}
 
 .experienceContainer {
   position: relative;
