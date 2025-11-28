@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   gap: 2rem;
-  margin: 3rem 0;
+  margin: 4rem 1.5rem;
   flex-wrap: wrap; /* stacks on smaller screens */
 }
 
@@ -12,14 +12,14 @@
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primarywhite);
 }
 
 .text {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.6;
-  color: #555;
+  color: var(--color-primarywhite);
 }

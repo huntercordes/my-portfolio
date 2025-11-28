@@ -7,7 +7,7 @@
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .content {
@@ -32,14 +32,16 @@
 
 .title {
   font-size: 1.5rem;
+  font-family: var(--font-primary);
   margin-bottom: 0.3rem;
-  color: #fff;
+  color: var(--color-primarywhite);
 }
 
 .subtitle {
   font-size: 0.9rem;
+  font-family: var(--font-primary);
   margin-bottom: 1rem;
-  color: #aaa;
+  color: var(--color-secondarymuted);
 }
 
 .bubbles {
@@ -48,40 +50,42 @@
 
 .bubble {
   display: inline-block;
-  background: #111;
-  border: 1px solid #74c8f8;
+  background: var(--color-primaryblack);
+  border: 1px solid var(--color-secondarypurple);
   border-radius: 16px;
   padding: 0.3rem 0.9rem;
   margin: 0 0.5rem 0.5rem 0;
   font-size: 0.85rem;
-  color: #74c8f8;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--color-secondarypurple);
+  font-family: var(--font-primary);
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 .bubble:hover {
-  background: black;
-  color: white;
+  background: var(--color-secondarypurple);
+  color: var(--color-primarywhite);
 }
 
 .description {
   font-size: 1rem;
+  font-family: var(--font-primary);
   margin-bottom: 1.5rem;
-  color: #ddd;
+  color: var(--color-primarywhite);
 }
 
 .button {
   display: inline-block;
   padding: 0.6rem 1.2rem;
-  background: #74c8f8;
-  color: black;
+  background: var(--color-secondarypurple);
+  color: var(--color-primaryblack);
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+  font-family: var(--font-primary);
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 .button:hover {
-  background: #111;
-  color: #74c8f8;
+  background: var(--color-primaryblack);
+  color: var(--color-secondarypurple);
 }

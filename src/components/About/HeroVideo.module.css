@@ -1,7 +1,13 @@
 .hero {
-  width: 80%;
-  height: 80vh; /* large hero feel */
-  overflow: hidden;
+  width: 100%; /* full width inside the scroll panel */
+  max-width: 1100px; /* matches scroll panel + card design */
+  height: 80vh; /* keeps cinematic height */
+
+  margin: 0 auto; /* CENTER it */
+
+  border-radius: 20px; /* matches panels */
+  overflow: hidden; /* smooth rounded corners */
+  position: relative; /* needed for playPauseButton */
 }
 
 .video {

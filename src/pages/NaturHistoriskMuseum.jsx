@@ -3,6 +3,7 @@ import RowOne from "../components/FeaturedProjects/RowOne";
 import styles from "../styles/NaturHistoriskMuseum.module.css"; // ✅ reuse background + layout styles
 import { useRef, useEffect } from "react";
 import OnePhoto from "../components/FeaturedProjects/OnePhoto";
+import Bioms from "../assets/Bioms.png";
 import digitaljournal from "../assets/digitaljournal.jpg";
 import Start from "../components/FeaturedProjects/Start";
 import DeskResearch from "../assets/deskresearchr.png";
@@ -20,13 +21,11 @@ import userflowexam from "../assets/userflowexam.jpg";
 import hifive from "../assets/hifive.png";
 import lofi from "../assets/lofi.png";
 import contrastcheck from "../assets/contrastcheck.jpg";
-import Navimage from "../assets/Navbar.jpg"
+import Navimage from "../assets/Navbar.jpg";
 
 export default function NaturHistoriskMuseum() {
-
   return (
-    <div className={styles.container}>      
-
+    <div className={styles.container}>
       {/* ✅ your case study content */}
       <CaseStudyIntro
         title="Naturhistorisk Museum"
@@ -34,7 +33,7 @@ export default function NaturHistoriskMuseum() {
         role={["UX", "UI", "User Research", "Front-end Development"]}
         date="May - June 2025"
       />
-      <OnePhoto src={digitaljournal} alt="Naturhistorisk Museum redesign" />
+      <OnePhoto src={Bioms} alt="Naturhistorisk Museum redesign" />
       <ProjectManagement
         title="Project Management"
         description="We used the double diamond framework to guide our design process, ensuring a structured approach to problem-solving and innovation. This involved phases of discovery, definition, development, and delivery, allowing us to thoroughly explore the challenges and opportunities presented by the museum's digital presence."
@@ -46,15 +45,13 @@ export default function NaturHistoriskMuseum() {
         deskDescription="We began by exploring the Naturhistorisk Museum’s existing digital presence and identifying opportunities to connect the online and physical experiences by also exploring solutions created by existing museums. Our early desk research focused on observing ways other locations make exhibits more interactive and engaging for visitors."
         deskImgSrc={DeskResearch}
         deskImgAlt="Desk research workspace"
-
-      fieldTitle="Field Research"
-      fieldDescription="Our field research involved developing a structured observation and interview guide to gain deeper insights into visitor behavior and engagement patterns at the museum. We conducted on-site visits to observe how guests interacted with the exhibits, noting moments of curiosity, confusion, and disengagement. Alongside this, we held short contextual interviews with visitors to understand their motivations, expectations, and challenges when navigating the space. These findings helped us identify key touchpoints in the user journey and uncover opportunities to enhance both the digital and physical experience of the museum."
-      fieldImgSrc={fieldresearch}
-      fieldImgAlt="Field research observations"
-
-      deskButtonText="Click for Field Research"
-      fieldButtonText="Click for Desk Research"
-    />
+        fieldTitle="Field Research"
+        fieldDescription="Our field research involved developing a structured observation and interview guide to gain deeper insights into visitor behavior and engagement patterns at the museum. We conducted on-site visits to observe how guests interacted with the exhibits, noting moments of curiosity, confusion, and disengagement. Alongside this, we held short contextual interviews with visitors to understand their motivations, expectations, and challenges when navigating the space. These findings helped us identify key touchpoints in the user journey and uncover opportunities to enhance both the digital and physical experience of the museum."
+        fieldImgSrc={fieldresearch}
+        fieldImgAlt="Field research observations"
+        deskButtonText="Click for Field Research"
+        fieldButtonText="Click for Desk Research"
+      />
 
       <RowOne
         leftTitle="Affinity Diagram"
@@ -80,21 +77,19 @@ export default function NaturHistoriskMuseum() {
         leftAlt="OOUX tables"
         rightAlt="List of Requirements/Values"
       />
-       <Start
+      <Start
         deskTitle="Moodboard"
         deskDescription="Our moodboard was created to set the visual direction for the app in a way that connects to the theme of nature and the atmosphere of the Natural History Museum. The goal was to create a style that feels calm, modern, and inspired by the natural world."
         deskImgSrc={moodboard}
         deskImgAlt="Moodboard"
-
-      fieldTitle="Style Guide"
-      fieldDescription="After thoroughly reviewing the system, we created a style guide that includes all the necessary components such as colors, heading levels, text styles, and spacing rules to ensure consistency."
-      fieldImgSrc={styleguide}
-      fieldImgAlt="Style guide"
-
-      deskButtonText="Click for Style Guide"
-      fieldButtonText="Click for Moodboard"
-    />
-    <RowOne
+        fieldTitle="Style Guide"
+        fieldDescription="After thoroughly reviewing the system, we created a style guide that includes all the necessary components such as colors, heading levels, text styles, and spacing rules to ensure consistency."
+        fieldImgSrc={styleguide}
+        fieldImgAlt="Style guide"
+        deskButtonText="Click for Style Guide"
+        fieldButtonText="Click for Moodboard"
+      />
+      <RowOne
         leftTitle="Sketches"
         leftText="As part of our ideation process, we used a modified version of the Crazy 8 sketching method, known as Crazy 4. The original Crazy 8 approach is a fast-paced brainstorming exercise where participants sketch eight different design ideas in eight minutes. This activity helped us build momentum in the early stages of design and made it easier to move from broad exploration into focused concept development."
         rightTitle="User Flow"
@@ -113,8 +108,8 @@ export default function NaturHistoriskMuseum() {
         leftText="After getting useful feedback from our Lo-Fi testing, we moved on to the high-fidelity mockups. Here, we focused on visual style, adding real content, and making everything feel more finished and user-friendly. We followed our mood board to keep colors consistent across all screens. For visuals, we used AI to generate images that matched the theme of our app. On the Biomes page, we used Sora to create short videos for each biome instead of static pictures."
         rightTitle="Accessibility"
         rightText="To make sure our design is accessible for everyone, we used a Figma plugin called Stark – Contrast and Accessibility Checker. This tool helped us test different parts of our design so that people with different needs and abilities can still use the website comfortably."
-        />
-        <DoublePicture
+      />
+      <DoublePicture
         leftImg={hifive}
         rightImg={contrastcheck}
         leftAlt="Hi-Fi Wireframes"
@@ -127,6 +122,5 @@ export default function NaturHistoriskMuseum() {
         imgAlt="Navigation Bar Code"
       />
     </div>
-    
   );
 }

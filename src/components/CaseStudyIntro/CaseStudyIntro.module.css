@@ -10,14 +10,20 @@
   font-weight: 700;
   margin-bottom: 1rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--color-primarywhite);
 }
 
 .description {
   font-size: 1.1rem;
   line-height: 1.6;
   margin-bottom: 2rem;
-  color: #444;
+  color: var(--color-primarywhite);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: left; /* make paragraphs left-aligned */
+}
+
+.description p {
+  margin: 1rem 0; /* spacing between paragraphs */
 }
 
 .meta {
@@ -31,8 +37,8 @@
   font-size: 1rem;
   text-transform: uppercase;
   margin-bottom: 0.3rem;
-  color: #666;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--color-secondarymuted);
+  font-family: var(--font-primary);
 }
 
 .meta p {
@@ -50,17 +56,17 @@
 
 .bubble {
   display: inline-block;
-  background: #111;
-  border: 1px solid #74c8f8;
+  background: var(--color-primaryblack);
+  border: 1px solid var(--color-secondarypurple);
   border-radius: 16px;
   padding: 0.3rem 0.9rem;
   font-size: 0.85rem;
-  color: #74c8f8;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--color-secondarypurple);
+  font-family: var(--font-primary);
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 .bubble:hover {
-  background: black;
-  color: white;
+  background: var(--color-primaryblack);
+  color: var(--color-primarywhite);
 }

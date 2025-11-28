@@ -1,48 +1,46 @@
 import styles from "../styles/Home.module.css";
-import { Link } from "react-router-dom"; // import Link
+import { Link } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
+import PixelBlast from "../components/PixelBlast";
 
 function Home() {
   return (
     <div className={styles.homePage}>
-      {[...Array(10)].map((_, i) => (
-        <div
-          key={i}
-          className={styles.floatingDot}
-          style={{
-            top: `${Math.random() * 80}vh`,
-            left: `${Math.random() * 90}vw`,
-            animationDelay: `${Math.random() * 5}s`,
-          }}
+      <div className={styles.homeContainer}>
+        {/* PIXEL BACKGROUND */}
+        <PixelBlast
+          className={styles.pixelBackground}
+          color="#b5ff7b" // visible green
+          transparent={false} // <-- IMPORTANT: let PixelBlast be opaque
         />
-      ))}
 
-      {/* Foreground content */}
-      <div className={styles.homeWrapper}>
-        <h1 className={styles.title}>
-          Hello, I am a{" "}
-          <span className={styles.highlight}>
-            <Typewriter
-              words={[
-                "<FRONTEND DEVELOPER",
-                "<UX/UI DESIGNER",
-                "<CREATIVE STORYTELLER",
-              ]}
-              loop={2} // infinite if you want
-              cursor
-              cursorStyle=">"
-              typeSpeed={100}
-              deleteSpeed={100}
-              delaySpeed={2000}
-            />
-          </span>{" "}
-        </h1>
-        <h1 className={styles.titleTwo}>
-          from Los Angeles, currently located in Denmark
-        </h1>
-        <Link to="/featured-projects" className={styles.projectButton}>
-          Explore my projects
-        </Link>
+        {/* CONTENT ABOVE IT */}
+        <div className={styles.homeWrapper}>
+          <h1 className={styles.title}>Hello, My name is Hunter </h1>
+
+          <h1 className={styles.titleTwo}>
+            <span className={styles.divide}> I am a </span>{" "}
+            <span className={styles.highlight}>
+              <Typewriter
+                words={[
+                  "<CREATIVE STORYTELLER",
+                  "<UX/UI DESIGNER",
+                  "<FRONTEND DEVELOPER",
+                ]}
+                loop={2}
+                cursor
+                cursorStyle=">"
+                typeSpeed={100}
+                deleteSpeed={100}
+                delaySpeed={2000}
+              />
+            </span>{" "}
+          </h1>
+
+          <Link to="/featured-projects" className={styles.projectButton}>
+            Explore my projects
+          </Link>
+        </div>
       </div>
     </div>
   );

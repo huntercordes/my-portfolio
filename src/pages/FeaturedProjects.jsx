@@ -3,14 +3,23 @@ import ProjectCard from "../components/FeaturedProjects/ProjectCard";
 import styles from "../styles/FeaturedProjects.module.css";
 import animelogo33 from "../assets/animelogo33.png";
 import Biomesgroup from "../assets/Biomesgroup.png";
+import PixelBlast from "../components/PixelBlast";
+import spillcafeen from "../assets/spilcafeenmockuphome.png";
+
 import handeheldforest from "../assets/handeheldforest.png";
 
 const projects = [
   {
     id: "project-1",
-    title: "Naturhistorisk Museum",
-    date: "May - June, 2025",
-    keywords: ["React", "Figma", "UX/UI Design", "Team Project","Prototyping and Testing"],
+    title: "Naturhistorisk Museum (Full Case Study)",
+    date: "Spring 2025",
+    keywords: [
+      "React",
+      "Figma",
+      "UX/UI Design",
+      "Team Project",
+      "Prototyping and Testing",
+    ],
     description:
       "An interactive digital solution built to increase user engagement with exhibitions at the Naturhistorisk Museum in Aarhus.",
     link: "/featured-projects/naturhistoriskmuseum",
@@ -18,13 +27,13 @@ const projects = [
   },
   {
     id: "project-2",
-    title: "Spilcafeen",
+    title: "Spilcaféen",
     date: "Fall 2024",
     keywords: ["UX/UI", "Prototyping", "Case Study"],
     description:
-      "A UX/UI design case study focusing on user-centered research and wireframing for a mobile-first solution.",
+      "A redesign of Spilcaféen’s website aimed at creating a more intuitive, visually consistent, and user-friendly experience.",
     link: "/featured-projects/spilcafeen",
-    image: animelogo33,
+    image: spillcafeen,
   },
 ];
 
@@ -40,33 +49,27 @@ export default function FeaturedProjects() {
   return (
     <div className={styles.container}>
       {/* Background video */}
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        className={styles.backgroundVideo}
-      >
-        <source
-          src="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/darkbackground.mp4?alt=media&token=976b1a8a-2d63-4753-8e06-ab5164ff97cf"
-          type="video/mp4"
-        />
-      </video>
-
-      <h1 className={styles.title}>Featured Projects</h1>
-      <div className={styles.cards}>
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            id={project.id}
-            title={project.title}
-            date={project.date}
-            keywords={project.keywords}
-            description={project.description}
-            link={project.link}
-            image={project.image}
-          />
-        ))}
+      <PixelBlast
+        className={styles.pixelBackground}
+        color="#B19EEF" // visible purple
+        transparent={false} // <-- IMPORTANT: let PixelBlast be opaque
+      />
+      <div className={styles.content}>
+        <h1 className={styles.title}>Featured Projects</h1>
+        <div className={styles.cards}>
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              id={project.id}
+              title={project.title}
+              date={project.date}
+              keywords={project.keywords}
+              description={project.description}
+              link={project.link}
+              image={project.image}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

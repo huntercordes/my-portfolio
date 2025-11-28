@@ -50,7 +50,7 @@
 }
 
 .navLinks li a {
-  color: #000;
+  color: var(--color-primarywhite);
   text-decoration: none;
   font-family: articulat-cf, sans-serif;
   font-weight: 500;
@@ -69,7 +69,7 @@
   content: "";
   display: block;
   height: 2px;
-  background: #000;
+  background: var(--color-primarywhite);
   width: 0;
   transition: width 0.3s ease, left 0.3s ease;
   position: absolute;
@@ -92,7 +92,7 @@
 
 .navButton {
   background: rgba(0, 0, 0, 0.95);
-  color: #fff;
+  color: var(--color-primarywhite);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   text-decoration: none;
@@ -107,7 +107,7 @@
 
 .navButton:hover {
   background: rgba(255, 255, 255, 0.3);
-  color: #003023;
+  color: var(--color--primaryblack);
 }
 
 /* Hamburger Button */
@@ -128,12 +128,12 @@
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   z-index: 1005;
-  color: #000;
+  color: var(--color-primarywhite);
 }
 
 /* hover circle effect */
 .burgerButton:hover {
-  background-color: rgba(131, 196, 65, 0.15); /* subtle green glow */
+  background-color: rgba(69, 70, 68, 0.15); /* subtle green glow */
   transform: scale(1.05);
 }
 
@@ -144,7 +144,50 @@
 
 /* X icon when menu open */
 .burgerButton.open .icon {
-  color: #fff;
+  color: var(--color-primarywhite);
+}
+.popupOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* above everything */
+}
+
+.popup {
+  background: #111;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  gap: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  color: var(--color-primarywhite);
+}
+
+.popupButton {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 1.4rem;
+  background: var(--color-accent, var(--color-secondaryhighlight));
+  color: black;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.closeButton {
+  margin-top: 1.5rem;
+  background: none;
+  border: 1px solid #555;
+  padding: 0.6rem 1rem;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /* --- Mobile Styles --- */
@@ -161,7 +204,6 @@
     display: none; /* hide desktop right buttons on mobile */
   }
 
-  /* Mobile overlay menu (hidden by default) */
   .mobileMenu {
     position: fixed;
     top: 0;
@@ -179,11 +221,15 @@
     z-index: 1004;
     padding: 2rem;
     box-sizing: border-box;
+
+    /*  Make it click-through when hidden */
+    pointer-events: none;
   }
 
   .mobileMenu.open {
     transform: translateY(0);
     opacity: 1;
+    pointer-events: all; /*  Only clickable when open */
   }
 
   .navLinksMobile {
@@ -198,7 +244,7 @@
   }
 
   .navLinksMobile li a {
-    color: #fff;
+    color: var(--color-primarywhite);
     text-decoration: none;
     font-size: 1.6rem;
     font-weight: 500;
@@ -206,7 +252,7 @@
   }
 
   .navLinksMobile li a:hover {
-    color: #83c441;
+    color: var(--color--secondaryhighlight);
   }
 
   .navButtonsMobile {
@@ -217,8 +263,8 @@
   }
 
   .navButtonsMobile .navButton {
-    background: #fff;
-    color: #000;
+    background: var(--color-primarywhite);
+    color: var(--color--primaryblack);
     padding: 0.6rem 1.2rem;
     border-radius: 25px;
     font-weight: 600;
@@ -226,8 +272,8 @@
   }
 
   .navButtonsMobile .navButton:hover {
-    background: #83c441;
-    color: #fff;
+    background: var(--color--secondaryhighlight);
+    color: var(--color-primarywhite);
   }
 }
 

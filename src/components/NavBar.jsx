@@ -7,6 +7,8 @@ import { FaBars, FaTimes } from "react-icons/fa"; // add this at the top
 function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showCVPopup, setShowCVPopup] = useState(false);
+  const [showContactPopup, setShowContactPopup] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -55,16 +57,17 @@ function NavBar() {
 
       {/* Right buttons (desktop) */}
       <div className={styles.rightButtons}>
-        <a
-          href="/path-to-your-cv.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.navButton}>
+        <button
+          className={styles.navButton}
+          onClick={() => setShowCVPopup(true)}>
           CV
-        </a>
-        <Link to="/contact" className={styles.navButton}>
+        </button>
+
+        <button
+          className={styles.navButton}
+          onClick={() => setShowContactPopup(true)}>
           Contact
-        </Link>
+        </button>
       </div>
 
       {/* Hamburger Button (visible on mobile) */}
@@ -76,7 +79,11 @@ function NavBar() {
         {menuOpen ? (
           <FaTimes size={26} color="#fff" className={styles.icon} />
         ) : (
-          <FaBars size={26} color="#000" className={styles.icon} />
+          <FaBars
+            size={26}
+            color="var(--color--primarywhite)"
+            className={styles.icon}
+          />
         )}
       </button>
 
@@ -106,22 +113,63 @@ function NavBar() {
         </ul>
 
         <div className={styles.navButtonsMobile}>
-          <a
-            href="/path-to-your-cv.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
             className={styles.navButton}
-            onClick={handleLinkClick}>
+            onClick={() => {
+              setShowCVPopup(true);
+              handleLinkClick();
+            }}>
             CV
-          </a>
-          <Link
-            to="/contact"
+          </button>
+
+          <button
             className={styles.navButton}
-            onClick={handleLinkClick}>
+            onClick={() => {
+              setShowContactPopup(true);
+              handleLinkClick();
+            }}>
             Contact
-          </Link>
+          </button>
         </div>
       </div>
+      {showCVPopup && (
+        <div
+          className={styles.popupOverlay}
+          onClick={() => setShowCVPopup(false)}>
+          <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
+            <h2>Download CV</h2>
+            <p>You can download my CV below:</p>
+            <a
+              href="/path-to-your-cv.pdf"
+              download
+              className={styles.popupButton}>
+              Download CV
+            </a>
+            <button
+              className={styles.closeButton}
+              onClick={() => setShowCVPopup(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showContactPopup && (
+        <div
+          className={styles.popupOverlay}
+          onClick={() => setShowContactPopup(false)}>
+          <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
+            <h2>Contact Me:</h2>
+            <p>Email: huntercordes@gmail.com</p>
+            <p>Phone: +45 31 71 29 77</p>
+            <button
+              className={styles.closeButton}
+              onClick={() => setShowContactPopup(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

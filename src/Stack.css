@@ -1,0 +1,22 @@
+.stack-container {
+  position: relative;
+  perspective: 600px;
+
+  /* 👇 VERY IMPORTANT */
+  overflow: visible;
+  width: max-content;
+}
+
+.card-rotate {
+  position: absolute;
+  cursor: grab;
+}
+
+.card {
+  border-radius: 20px;
+  border: 4px solid #ffffff44;
+  overflow: hidden;
+  background: rgba(20, 20, 20, 0.9);
+  padding: 1rem;
+  box-sizing: border-box;
+}

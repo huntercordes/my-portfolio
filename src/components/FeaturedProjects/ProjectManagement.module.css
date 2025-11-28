@@ -3,10 +3,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  margin: 4rem 0;
+  margin: 4rem 1.5rem;
   flex-wrap: wrap; /* ensures good behavior on smaller screens */
   height: 100vh;
-  
 }
 
 .textContainer {
@@ -18,13 +17,13 @@
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #fff; /* adjust depending on background */
+  color: var(--color-primarywhite);
 }
 
 .description {
   font-size: 1.1rem;
   line-height: 1.6;
-  color: #ccc;
+  color: var(--color-primarywhite);
 }
 
 .imageContainer {

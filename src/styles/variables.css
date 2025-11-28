@@ -1,0 +1,18 @@
+:root {
+  /*  Colors */
+  --color-primaryblack: #242323;
+  --color-primarywhite: #fefefe;
+  --color-primaryblue: #74c8f8;
+  --color-secondaryhighlight: #d5ff6b;
+  --color-secondarypurple: #b19eef;
+  --color-secondarymuted: #eeeeef;
+  --color-error: #e63946;
+
+  /*  Typography */
+  --font-primary: parabolica, sans-serif;
+  --font-secondary: maison-neue-book, sans-serif;
+  --font-heading: anton, sans-serif;
+  --font-size-base: 16px;
+  --font-size-title: 2rem;
+  --font-size-subtitle: 1.2rem;
+}

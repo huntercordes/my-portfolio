@@ -1,14 +1,12 @@
-import { forwardRef, useRef, useEffect } from "react";
 import styles from "../../styles/ExperienceCarousel.module.css";
 import animelogo33 from "../../assets/animelogo33.png";
-import calpolypomona from "../../assets/CalPoly.png";
 import northwesternmutual from "../../assets/northwestern-mutual.jpeg";
 import netto from "../../assets/netto.jpg";
 import lars from "../../assets/lars.jpeg";
 import Klara from "../../assets/Klara.png";
 import morisaki from "../../assets/morisaki.png";
 
-const experiences = [
+export const experiences = [
   {
     year: 2025,
     title: "SPOT / UMTO / FoW",
@@ -86,62 +84,59 @@ const experiences = [
   },
 ];
 
-const ExperienceCarousel = forwardRef(
-  ({ activeIndex, setActiveIndex }, ref) => {
-    const containerRef = useRef();
+export default function ExperienceCarousel({ activeIndex, setActiveIndex }) {
+  const total = experiences.length;
+  const experience = experiences[activeIndex];
 
-    useEffect(() => {
-      const container = containerRef.current;
-      const handleScroll = () => {
-        const cards = Array.from(container.children);
-        const center = container.scrollLeft + container.offsetWidth / 2;
-        const closest = cards.reduce((prev, curr, i) => {
-          const currCenter = curr.offsetLeft + curr.offsetWidth / 2;
-          return Math.abs(currCenter - center) <
-            Math.abs(
-              cards[prev].offsetLeft + cards[prev].offsetWidth / 2 - center
-            )
-            ? i
-            : prev;
-        }, 0);
-        setActiveIndex(closest);
-      };
+  const prev = () => setActiveIndex((i) => (i - 1 + total) % total);
+  const next = () => setActiveIndex((i) => (i + 1) % total);
 
-      container.addEventListener("scroll", handleScroll);
-      return () => container.removeEventListener("scroll", handleScroll);
-    }, [setActiveIndex]);
+  return (
+    <div className={styles.simpleCarousel}>
+      <button
+        type="button"
+        className={styles.arrow}
+        onClick={prev}
+        aria-label="Previous experience">
+        <span className={styles.arrowGlyph} aria-hidden="true">
+          ←
+        </span>
+      </button>
 
-    return (
-      <div
-        ref={(el) => {
-          ref.current = el;
-          containerRef.current = el;
-        }}
-        className={styles.carousel}>
-        {experiences.map((exp, i) => (
-          <div
-            key={exp.year + exp.title}
-            className={`${styles.card} ${
-              activeIndex === i ? styles.activeCard : ""
-            }`}>
-            <h2 className={styles.year}>{exp.year}</h2>
-            <h3 className={styles.title}>{exp.title}</h3>
-            <div className={styles.bubbles}>
-              {exp.bubbles.map((b, index) => (
-                <span key={index} className={styles.bubble}>
-                  {b}
-                </span>
-              ))}
-            </div>
-            <p className={styles.description}>{exp.description}</p>
-            {exp.photo && (
-              <img src={exp.photo} alt={exp.title} className={styles.photo} />
-            )}
-          </div>
-        ))}
-      </div>
-    );
-  }
-);
+      <article className={styles.card} aria-live="polite">
+        <header className={styles.cardHeader}>
+          <p className={styles.year}>{experience.year}</p>
+          <h2 className={styles.title}>{experience.title}</h2>
+        </header>
 
-export default ExperienceCarousel;
+        <div className={styles.bubbles}>
+          {experience.bubbles.map((b, idx) => (
+            <span key={`${b}-${idx}`} className={styles.bubble}>
+              {b}
+            </span>
+          ))}
+        </div>
+
+        <p className={styles.description}>{experience.description}</p>
+
+        {experience.photo && (
+          <img
+            src={experience.photo}
+            alt={experience.title}
+            className={styles.photo}
+          />
+        )}
+      </article>
+
+      <button
+        type="button"
+        className={styles.arrow}
+        onClick={next}
+        aria-label="Next experience">
+        <span className={styles.arrowGlyph} aria-hidden="true">
+          →
+        </span>
+      </button>
+    </div>
+  );
+}

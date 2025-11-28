@@ -1,55 +1,112 @@
 .timelineWrapper {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+  justify-content: center;
   margin-bottom: 2rem;
+  padding-block: 2rem; /* space for labels */
+  overflow-x: hidden;
 }
 
-.line {
-  position: absolute;
-  top: 50%;
-  width: 60%;
-  height: 3px;
-  background: #daa803;
-  transform: translateY(-50%);
-  z-index: 0;
-}
-
-.dotsContainer {
+/* 🔹 Container that holds both the line and dots */
+.timelineTrack {
+  position: relative;
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  position: relative;
-  z-index: 1;
+  align-items: flex-start; /* dots align top, line overlays center */
+  gap: clamp(1rem, 2vw, 2rem);
+  width: clamp(280px, 80%, 800px);
 }
 
+/* 🔹 The yellow line that goes through the center of the dots */
+.line {
+  position: absolute;
+  top: 16px; /* <-- This ensures the line crosses through the dot centers */
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #daa803;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 🔹 Each dot+year pair */
+.dotWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1; /* ensure dots are above the line */
+}
+
+/* 🔹 Dot itself */
 .dot {
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #444;
   border: 2px solid #daa803;
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
-.dot:hover {
-  transform: scale(1.2);
+.dotWrap:hover .dot {
+  transform: scale(1.25);
+  box-shadow: 0 0 8px #daa803;
 }
 
-.activeDot {
+.active .dot {
   background: #daa803;
+  transform: scale(1.25);
 }
 
+/* 🔹 Year label under each dot */
 .year {
-  position: absolute;
-  top: 150%;
-  left: 50%;
-  transform: translateX(-50%);
   color: #000;
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 1.6vw, 0.85rem);
   white-space: nowrap;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .timelineTrack {
+    width: 90%;
+    gap: clamp(0.6rem, 1.5vw, 1.5rem);
+  }
+  .line {
+    top: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .timelineTrack {
+    width: 95%;
+    gap: clamp(0.4rem, 1.4vw, 1rem);
+  }
+  .dot {
+    width: 16px;
+    height: 16px;
+  }
+  .line {
+    top: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .timelineWrapper {
+    overflow-x: auto;
+    padding-block: 2rem;
+  }
+
+  .timelineTrack {
+    width: max-content;
+    justify-content: flex-start;
+    padding-inline: 1.5rem;
+    gap: 1.2rem;
+  }
+  .line {
+    top: 12px;
+  }
 }

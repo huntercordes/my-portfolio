@@ -50,28 +50,21 @@ function App() {
 export default App;
 */
 import { useState } from "react";
-import {Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import MyWork from "./pages/MyWork";
 import NaturHistoriskMuseum from "./pages/NaturHistoriskMuseum";
-import SplashScreen from "./components/SplashScreen";
 import Experience from "./pages/Experience";
 import About from "./pages/About";
 import { VideoProvider } from "./context/VideoContext";
 import FeaturedProjects from "./pages/FeaturedProjects";
 import SpilCafeen from "./pages/SpilCafeen";
 
-
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
-
   return (
     <VideoProvider>
-    
-      {showSplash ? (
-        <SplashScreen onFinish={() => setShowSplash(false)} />
-      ) : (
+      {
         <>
           {/* Navbar always visible */}
           <NavBar />
@@ -80,10 +73,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/mywork" element={<MyWork />} />
-            <Route path="/featured-projects/naturhistoriskmuseum"
+            <Route
+              path="/featured-projects/naturhistoriskmuseum"
               element={<NaturHistoriskMuseum />}
             />
-            <Route path="/featured-projects/spilcafeen"
+            <Route
+              path="/featured-projects/spilcafeen"
               element={<SpilCafeen />}
             />
             <Route path="/about" element={<About />} />
@@ -91,8 +86,7 @@ function App() {
             <Route path="/featured-projects" element={<FeaturedProjects />} />
           </Routes>
         </>
-      )}
-    
+      }
     </VideoProvider>
   );
 }

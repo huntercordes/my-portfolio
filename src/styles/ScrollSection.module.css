@@ -1,0 +1,51 @@
+.section {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem; /* MATCH wrapper */
+  box-sizing: border-box;
+
+  position: relative;
+  z-index: 2;
+
+  /* fade + slide */
+  transform: translateY(10vh);
+  opacity: 0;
+  transition: transform 0.9s ease-out, opacity 0.9s ease-out;
+}
+
+.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.scrollPanel {
+  width: 100%;
+  max-width: 1100px; /* MATCH card */
+  min-height: 50vh; /* MATCH card */
+
+  padding: 4rem 2.5rem; /* MATCH card */
+  box-sizing: border-box;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 20, 0.95),
+    rgba(10, 10, 10, 0.98)
+  ); /* MATCH card */
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); /* MATCH card */
+  border: 1px solid rgba(255, 255, 255, 0.06); /* MATCH card */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  animation: fadeUp 0.7s ease both; /* MATCH card */
+}

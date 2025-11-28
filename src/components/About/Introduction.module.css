@@ -1,99 +1,49 @@
-.introSection {
+.introWrapper {
   width: 100%;
-  min-height: 90vh;
-  scroll-snap-align: start;
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0.5rem;
+  box-sizing: border-box;
+  margin-left: calc(-1rem);
+  margin-right: calc(-1rem);
+}
+
+.textBlock {
+  width: 100%;
+  max-width: 1000px;
+  color: var(--text-primary, #fff);
+  font-family: var(--font-primary);
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  line-height: 1.7;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin: 0 auto;
-  padding: clamp(2rem, 5vw, 6rem) 2vw;
-  background: transparent;
-  box-sizing: border-box;
-  overflow: visible;
+  gap: 2.2rem;
 }
 
-/* ✅ Center and constrain text properly */
-.introContent {
+/* Highlight words */
+.pop {
+  color: var(--accent-blue, #4db5ff);
+  font-weight: 700;
+}
+
+/* Paragraph spacing */
+.textBlock p {
+  margin: 0;
+  color: var(--text-primary, #fff);
+}
+
+/* Fix gallery size */
+.circular-gallery {
   width: 100%;
-  max-width: 900px; /* keeps it balanced on large screens */
-  margin: 0 auto; /* ensures it's centered */
-  text-align: center;
-  color: #111;
+  height: 700px !important; /* 🔥 force a MUCH larger gallery */
   position: relative;
-  z-index: 1;
+  overflow: hidden;
 }
-
-/* Portrait */
-.photo {
-  width: clamp(120px, 15vw, 220px);
-  height: auto;
-  border-radius: 50%;
-  object-fit: cover;
-  margin: 0 auto 2rem auto; /* centers photo */
+.circular-gallery canvas {
+  width: 100% !important;
+  height: 100% !important;
   display: block;
-}
-
-/* Paragraphs */
-.introContent p {
-  font-size: clamp(1rem, 1.3vw, 1.25rem);
-  font-family: articulat-cf, sans-serif;
-  font-weight: 400;
-  line-height: 1.6;
-  color: #111;
-  margin-bottom: 1.6rem;
-  padding: 0 1rem;
-}
-
-/* --- Responsive --- */
-
-/* Tablets */
-@media (max-width: 1024px) {
-  .introSection {
-    padding: 3rem 3vw;
-  }
-  .introContent {
-    max-width: 720px;
-  }
-}
-
-/* Phones */
-@media (max-width: 768px) {
-  .introSection {
-    padding: 2rem 1.5rem;
-  }
-
-  .introContent {
-    max-width: 95%;
-  }
-
-  .photo {
-    width: clamp(100px, 25vw, 150px);
-  }
-
-  .introContent p {
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-}
-
-/* Small phones */
-@media (max-width: 480px) {
-  .introSection {
-    padding: 2rem 1rem;
-  }
-
-  .introContent {
-    max-width: 100%;
-  }
-
-  .introContent p {
-    font-size: 0.95rem;
-    line-height: 1.45;
-  }
-
-  .photo {
-    width: 120px;
-  }
+  position: absolute;
+  inset: 0;
 }

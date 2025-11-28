@@ -1,33 +1,46 @@
 import styles from "./Introduction.module.css";
-import cutout1 from "../../assets/cutout1.png";
-import SelfieCarousel from "./SelfieCarousel"; // 👈 import it
+import CircularGallery from "./CircularGallery";
+
+// Import your selfies
+import agf from "../../assets/agfselfie.jpg";
+import boat from "../../assets/boatselfie.jpeg";
+import injury from "../../assets/injuryselfie.jpg";
+import lacabra from "../../assets/lacabraselfie.jpg";
+import mads from "../../assets/madsselfie.jpg";
+import waterpolo from "../../assets/waterpoloselfie.JPG";
 
 export default function Introduction() {
   return (
-    <section id="introduction" className={styles.introSection}>
-      <div className={styles.fadeOval}>
-        <div className={styles.introContent}>
-          <img src={cutout1} alt="Me" className={styles.photo} />
+    <div className={styles.introWrapper}>
+      <div className={styles.textBlock}>
+        <CircularGallery
+          key="intro-gallery"
+          items={[
+            { image: agf, text: "I Enjoy a good Superliga game" },
+            {
+              image: boat,
+              text: "Worked in Ebeltoft for a summer focusing on my Danish",
+            },
+            { image: injury, text: "A short football injury can't stop me!" },
+            { image: lacabra, text: "I have a BMO addiction" },
+            { image: mads, text: "I met Mads Mikkelsen in Tokyo" },
+            { image: waterpolo, text: "I love playing waterpolo" },
+          ]}
+          bend={2}
+          textColor="#fff"
+          borderRadius={0.06}
+        />
 
-          <p>
-            I love music, art, and books. I’m fascinated by the ways people
-            communicate without speaking—the way a subtle brushstroke or a
-            softly pressed piano key can evoke complex emotions, or how a single
-            metaphor can transform confusion into clarity.
-          </p>
-
-          {/* 👇 Insert the carousel here to break up text */}
-          <SelfieCarousel />
-
-          <p>
-            Drawing inspiration from art fuels creativity and sparks new ideas.
-          </p>
-          <p>
-            Through different mediums, I strive to create experiences that
-            resonate universally while reflecting my personal vision.
-          </p>
-        </div>
+        <p>
+          I have driven to all 49 states you can drive to (multiple times),
+          lived in multiple states and countries, and even learned a few
+          languages! Through experiencing different cultures deeply and
+          intently, I have gained an understanding of how people respond
+          differently to interactions and environments. This has helped me
+          become a more empathetic and adaptable person, which I believe are
+          crucial qualities for a successful designer.
+        </p>
       </div>
-    </section>
+    </div>
   );
 }

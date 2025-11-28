@@ -6,12 +6,16 @@
   color: #242424;
   background-color: #f9f9f9;
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-
 }
 
 h1 {

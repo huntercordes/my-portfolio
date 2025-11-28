@@ -1,32 +1,36 @@
-.experienceContainer {
+.experiencePage {
+  position: relative;
   width: 100vw;
-  height: 100vh;
-  overflow: hidden; /* no vertical scrolling */
+  min-height: 100vh;
+  overflow: hidden; /* prevent weird scrolling */
+}
+
+.pixelBackground {
+  position: absolute;
+  inset: 0; /* top:0, right:0, bottom:0, left:0 */
+  z-index: 0; /* behind everything */
+  pointer-events: none; /* prevents blocking interactions */
+}
+
+.experienceContainer {
+  position: relative;
+  z-index: 2; /* ABOVE the animated background */
+  width: 100vw;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  position: relative;
   color: #fff;
   text-align: center;
-  background: #ffffff;
-}
-
-.backgroundVideo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
+  padding-bottom: 40px;
 }
 
 .pageTitle {
   font-size: 3rem;
   font-weight: 700;
-  margin: 1.5rem 0;
   color: #fff;
+  margin-bottom: 20px;
 }
 
 .highlight {

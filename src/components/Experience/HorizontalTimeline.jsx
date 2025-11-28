@@ -3,17 +3,18 @@ import styles from "../../styles/HorizontalTimeline.module.css";
 export default function HorizontalTimeline({ years, activeIndex, onDotClick }) {
   return (
     <div className={styles.timelineWrapper}>
-      <div className={styles.line} />
-      <div className={styles.dotsContainer}>
+      <div className={styles.timelineTrack}>
+        <div className={styles.line}></div>
         {years.map((year, index) => (
-          <div
+          <button
             key={year}
-            className={`${styles.dot} ${
-              activeIndex === index ? styles.activeDot : ""
-            }`}
-            onClick={() => onDotClick(index)}>
+            onClick={() => onDotClick(index)}
+            className={`${styles.dotWrap} ${
+              activeIndex === index ? styles.active : ""
+            }`}>
+            <span className={styles.dot}></span>
             <span className={styles.year}>{year}</span>
-          </div>
+          </button>
         ))}
       </div>
     </div>

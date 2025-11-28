@@ -1,80 +1,111 @@
-.carousel {
+.simpleCarousel {
   display: flex;
-  flex-wrap: nowrap;
   align-items: center;
-
-  /* ► scrolling */
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  /* ► space so the first/last card can center */
-  padding: 0 12vw;
-  scroll-padding: 12vw;
-
-  /* layout */
-  height: 80vh; /* below title/timeline */
-  column-gap: 2rem; /* spacing between cards */
-  box-sizing: border-box;
-  perspective: 1000px;
-}
-.carousel::-webkit-scrollbar {
-  display: none;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 70vh;
+  position: relative; /* ✅ make container a z-index context */
+  z-index: 5; /* ✅ keeps arrows clickable above other elements */
 }
 
-/* --- Cards: same size at every breakpoint --- */
+/* --- Arrow buttons --- */
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 2px solid #daa803;
+  background: rgba(0, 0, 0, 0.5);
+  color: #daa803;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  flex-shrink: 0;
+  z-index: 10; /* ✅ ensure arrows are above card and timeline */
+  position: relative;
+}
+
+.arrow:hover {
+  background: #daa803;
+  color: #000;
+}
+
+.arrow:active {
+  transform: scale(0.94);
+}
+
+.arrowGlyph {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* Responsive arrows */
+@media (max-width: 768px) {
+  .arrow {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-width: 1.5px;
+  }
+  .arrowGlyph {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .arrow {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .arrowGlyph {
+    font-size: 1.2rem;
+  }
+}
+
+/* Fixed-size card — consistent across all items */
 .card {
-  /* same width per card, guaranteed overflow => scroll */
-  flex: 0 0 clamp(340px, 52vw, 560px);
-  aspect-ratio: 1 / 1.1; /* square-ish */
-  scroll-snap-align: center;
-
+  width: clamp(320px, 60vw, 560px);
+  height: clamp(420px, 62vh, 640px);
   background: rgba(20, 20, 20, 0.85);
   border-radius: 16px;
-  padding: 2rem;
+  padding: 1.5rem;
   color: #fff;
   text-align: center;
-
-  transform: scale(0.9) rotateY(10deg);
-  transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.6s ease;
-  opacity: 0.65;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 
   display: grid;
-  grid-template-rows: auto auto auto 1fr auto; /* year, title, bubbles, desc, photo */
+  grid-template-rows: auto auto auto 1fr auto; /* header, bubbles, desc, photo/footer */
   align-items: start;
   justify-items: center;
-
-  max-height: 70vh; /* prevent vertical overflow */
-  box-sizing: border-box;
+  overflow: hidden; /* keep content inside frame */
 }
 
-.activeCard {
-  transform: scale(1) rotateY(0deg);
-  opacity: 1;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+.cardHeader {
+  display: grid;
+  gap: 0.25rem;
 }
 
 .year {
-  font-size: 1.3rem;
-  color: #daa803;
-  margin-bottom: 0.2rem;
+  font-size: 1.2rem;
+  color: var(--color-primaryblue);
 }
 .title {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   color: #74c8f8;
-  margin-bottom: 0.5rem;
 }
 
+/* Bubbles wrap; clamp height to avoid pushing layout */
 .bubbles {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem 0.5rem;
   justify-content: center;
-  margin-bottom: 0.6rem;
+  max-height: 4.5rem;
+  overflow: hidden;
+  padding-bottom: 0.25rem;
 }
 .bubble {
   background: #111;
@@ -85,7 +116,7 @@
   color: #74c8f8;
 }
 
-/* Description sits in the flexible row; clamp so it never pushes layout */
+/* Description clamped to fit within fixed card height */
 .description {
   align-self: stretch;
   font-size: 0.95rem;
@@ -93,73 +124,58 @@
   color: #ddd;
   padding: 0 0.5rem;
   margin: 0 auto;
+
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 7;
-  overflow: hidden; /* truncate if too long */
+  -webkit-line-clamp: 6; /* adjust lines to your taste */
+  overflow: hidden;
 }
 
-/* Photo keeps proportions (no stretch/zoom) */
+/* Photo constrained; never overflows card */
 .photo {
   width: 100%;
   max-width: 360px;
   height: auto;
-  max-height: 32vh;
+  max-height: 28vh;
   object-fit: contain;
   border-radius: 10px;
-  margin-top: 0.6rem;
+  margin-top: 0.5rem;
 }
 
-/* --- Responsive tweaks --- */
-@media (max-width: 1024px) {
-  .carousel {
-    padding: 0 10vw;
-    scroll-padding: 10vw;
-  }
-  .card {
-    flex-basis: clamp(320px, 60vw, 540px);
-  }
-  .description {
-    -webkit-line-clamp: 6;
-  }
-}
-
+/* Responsive tweaks */
 @media (max-width: 768px) {
-  .carousel {
-    padding: 0 8vw;
-    scroll-padding: 8vw;
-    height: 75vh;
+  .simpleCarousel {
+    gap: 1rem;
+    height: 68vh;
   }
   .card {
-    flex-basis: 80vw;
-    padding: 1.6rem;
-    aspect-ratio: 1 / 1.15;
-  }
-  .photo {
-    max-width: 300px;
-    max-height: 28vh;
+    width: 86vw;
+    height: 64vh;
   }
   .description {
     -webkit-line-clamp: 5;
   }
+  .photo {
+    max-height: 24vh;
+  }
 }
-
 @media (max-width: 480px) {
-  .carousel {
-    padding: 0 6vw;
-    scroll-padding: 6vw;
-    height: 72vh;
+  .arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .arrowGlyph {
+    font-size: 1.3rem;
   }
   .card {
-    flex-basis: 90vw;
+    width: 92vw;
+    height: 60vh;
     padding: 1.2rem;
-    aspect-ratio: 1 / 1.22;
-  }
-  .photo {
-    max-width: 260px;
-    max-height: 24vh;
   }
   .description {
     -webkit-line-clamp: 4;
+  }
+  .photo {
+    max-height: 22vh;
   }
 }

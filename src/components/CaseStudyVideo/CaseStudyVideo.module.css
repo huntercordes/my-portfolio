@@ -1,0 +1,16 @@
+.videoWrapper {
+  width: 100%;
+  max-width: 500px; /* perfect mobile-width video */
+  margin: 3rem auto 0 auto; /* centers + adds spacing from intro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video {
+  width: 100%;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
