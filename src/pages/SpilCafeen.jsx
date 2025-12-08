@@ -29,7 +29,7 @@ My responsibilities included conducting user research, defining the site’s req
         leftAlt="Inspiration Board"
         rightAlt="Guerrilla Testing"
       />
-      <CaseStudyVideo src={spilcafeenvideo} />
+      <CaseStudyVideo src="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/spilcafeenvideo.mp4?alt=media&token=d78ffc8a-0ea4-4fa7-81c0-ee14ea276d24" />
     </div>
   );
 }
