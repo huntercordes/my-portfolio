@@ -103,19 +103,19 @@ export default function About() {
                 cover: Klara,
                 alt: "Klara and the Sun",
                 description:
-                  "A Nobel Prize winner... portrayal of being “born” into the world as an AI...",
+                  "A nobel prize winner in literature, Klara and the Sun was one of the most interesting books I have ever read. What shocked me most about the author’s view of what it is like to be “born” suddenly into the world as an AI, is the experiences that you would find strange, that we as humans do not think twice about. ",
               },
               {
                 cover: morisaki,
                 alt: "Days at the Morisaki Bookshop",
                 description:
-                  "Reading this in a Kyoto bookstore while it rained...",
+                  "Before my trip to Japan a few months ago, I read days at the morisaki bookshop, and its sequel while in japan. Reading a book about someone who works in a bookshop, while watching the rain fall outside of a bookstore in Kyoto will forever be a cherished memory.",
               },
               {
                 cover: quantum,
                 alt: "Beyond Weird",
                 description:
-                  "Wanted a Cillian Murphy moment. Did not get it. Still fun.",
+                  "A book on a complex topic I know nothing about? Why not. I just wanted a Cillian Murphy moment where I lay in bed and suddenly I have a vision on how to split an atom. The moment never came, but I love that I can now join a conversation on quantum physics and understand a bit of what is going on.",
               },
             ]}
           />
