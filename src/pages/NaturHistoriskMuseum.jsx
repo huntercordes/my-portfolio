@@ -1,6 +1,6 @@
 import CaseStudyIntro from "../components/CaseStudyIntro/CaseStudyIntro";
 import RowOne from "../components/FeaturedProjects/RowOne";
-import styles from "../styles/NaturHistoriskMuseum.module.css"; // ✅ reuse background + layout styles
+import styles from "../styles/NaturHistoriskMuseum.module.css";
 import { useRef, useEffect } from "react";
 import OnePhoto from "../components/FeaturedProjects/OnePhoto";
 import Bioms from "../assets/Bioms.png";
@@ -28,7 +28,7 @@ import Navimage from "../assets/Navbar.jpg";
 export default function NaturHistoriskMuseum() {
   return (
     <div className={styles.container}>
-      {/* ✅ your case study content */}
+      {/* my case study content */}
       <CaseStudyIntro
         title="Naturhistorisk Museum"
         description="This project was completed during my second semester in the Multimedia Design program. We were asked to apply key design processes and principles to redesign the Naturhistorisk Museum’s website and create a new digital solution that encourages visitors to return and engage more deeply with the exhibitions."

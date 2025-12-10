@@ -6,8 +6,10 @@ import Biomesgroup from "../assets/Biomesgroup.png";
 import PixelBlast from "../components/PixelBlast";
 import spillcafeen from "../assets/spilcafeenmockuphome.png";
 import ReadMe from "../assets/ReadMe.png";
+import AaruseExample from "../assets/AaruseExample.png";
 
 import handeheldforest from "../assets/handeheldforest.png";
+import Aaruse from "./Aaruse";
 
 const projects = [
   {
@@ -25,6 +27,22 @@ const projects = [
       "An interactive digital solution built to increase user engagement with exhibitions at the Naturhistorisk Museum in Aarhus.",
     link: "/featured-projects/naturhistoriskmuseum",
     image: handeheldforest,
+  },
+  {
+    id: "project-4",
+    title: "Aaruse (Full Case Study)",
+    date: "Fall 2025",
+    keywords: [
+      "React",
+      "Figma",
+      "UX/UI Design",
+      "Team Project",
+      "Prototyping and Testing",
+    ],
+    description:
+      "An interactive digital solution built to increase environmental awareness and care in Aarhus, and create reuse and recycling initiatives.",
+    link: "/featured-projects/aaruse",
+    image: AaruseExample,
   },
   {
     id: "project-2",
