@@ -10,9 +10,11 @@ import DeskResearch from "../assets/deskresearchr.png";
 import fieldresearch from "../assets/fieldresearch.png";
 import doublediamond from "../assets/doublediamond.png";
 import ProjectManagement from "../components/FeaturedProjects/ProjectManagement";
+import NaturVideo from "../components/CaseStudyVideo/VideoNatur";
 import DoublePicture from "../components/FeaturedProjects/DoublePicture";
 import affinity from "../assets/affinity.png";
 import persona from "../assets/persona.png";
+import CaseStudyVideo from "../components/CaseStudyVideo/CaseStudyVideo";
 import listofvalues from "../assets/listofvalues.png";
 import ooux from "../assets/ooux.png";
 import moodboard from "../assets/moodboard.png";
@@ -120,6 +122,12 @@ export default function NaturHistoriskMuseum() {
         description="Once our high-fidelity prototypes were finalized and user-tested, we began developing the new museum website using React, a component-based JavaScript library that supports modular, reusable, and scalable design. This approach streamlined our workflow and improved performance through React’s virtual DOM, which updates only the necessary parts of a page. From the beginning, we also prioritized SEO, implementing best practices such as metadata optimization, descriptive alt text, and server-side rendering where possible. Each component was styled using CSS modules to ensure maintainability and prevent style conflicts. Finally, we focused on responsive design, ensuring the layout adapted smoothly across devices for both on-site and remote visitors."
         imgSrc={Navimage}
         imgAlt="Navigation Bar Code"
+      />
+      <NaturVideo
+        title="AU Website Redesign - Coded Solution"
+        description="This project focused on modernizing the website by rebuilding key sections using React to create a cleaner, more intuitive user experience. One example is the redesigned event cards: instead of the previous blog-style layout, I developed reusable React components that clearly display the event name, date, location, description, and a “Buy Tickets” CTA. By structuring these pieces as modular props-driven components, the UI becomes more consistent, maintainable, and scalable while making it easier for users to quickly scan event details and take action. "
+        video="https://firebasestorage.googleapis.com/v0/b/my-portfolio-fbac0.firebasestorage.app/o/naturvideo.mp4.mp4?alt=media&token=eeb0d231-2a54-4ce3-b937-341c9a1a992d"
+        videoAlt="Nature Museum Website Coded Solution"
       />
     </div>
   );

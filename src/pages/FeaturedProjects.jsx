@@ -5,6 +5,7 @@ import animelogo33 from "../assets/animelogo33.png";
 import Biomesgroup from "../assets/Biomesgroup.png";
 import PixelBlast from "../components/PixelBlast";
 import spillcafeen from "../assets/spilcafeenmockuphome.png";
+import ReadMe from "../assets/ReadMe.png";
 
 import handeheldforest from "../assets/handeheldforest.png";
 
@@ -34,6 +35,16 @@ const projects = [
       "A redesign of Spilcaféen’s website aimed at creating a more intuitive, visually consistent, and user-friendly experience.",
     link: "/featured-projects/spilcafeen",
     image: spillcafeen,
+  },
+  {
+    id: "project-3",
+    title: "Github Projects",
+    date: "Fall 2024 - Present",
+    keywords: ["UX/UI", "Prototyping", "Case Study", "React"],
+    description:
+      "A collection of personal and collaborative projects showcasing skills in React and modern web development.",
+    link: "https://github.com/huntercordes/portfolio",
+    image: ReadMe,
   },
 ];
 
