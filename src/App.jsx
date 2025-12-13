@@ -61,6 +61,7 @@ import { VideoProvider } from "./context/VideoContext";
 import FeaturedProjects from "./pages/FeaturedProjects";
 import SpilCafeen from "./pages/SpilCafeen";
 import Aaruse from "./pages/Aaruse";
+import BrandManuals from "./pages/BrandManuals";
 
 function App() {
   return (
@@ -83,6 +84,10 @@ function App() {
               element={<SpilCafeen />}
             />
             <Route path="/featured-projects/aaruse" element={<Aaruse />} />
+            <Route
+              path="/featured-projects/brandmanuals"
+              element={<BrandManuals />}
+            />
             <Route path="/about" element={<About />} />
             <Route path="/experience" element={<Experience />} />
             <Route path="/featured-projects" element={<FeaturedProjects />} />

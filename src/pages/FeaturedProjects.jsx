@@ -7,6 +7,7 @@ import PixelBlast from "../components/PixelBlast";
 import spillcafeen from "../assets/spilcafeenmockuphome.png";
 import ReadMe from "../assets/ReadMe.png";
 import AaruseExample from "../assets/AaruseExample.png";
+import BrandIdentity from "../assets/BrandIdentityAaruse.png";
 
 import handeheldforest from "../assets/handeheldforest.png";
 import Aaruse from "./Aaruse";
@@ -43,6 +44,16 @@ const projects = [
       "An interactive digital solution built to increase environmental awareness and care in Aarhus, and create reuse and recycling initiatives.",
     link: "/featured-projects/aaruse",
     image: AaruseExample,
+  },
+  {
+    id: "project-6",
+    title: "Brand Manual Aaruse",
+    date: "Fall 2025",
+    keywords: ["UX/UI", "Prototyping", "Brand Manual", "Figma"],
+    description:
+      "A comprehensive brand manual created for Aaruse, detailing the visual and interactive elements of the brand.",
+    link: "/featured-projects/brandmanuals",
+    image: BrandIdentity,
   },
   {
     id: "project-2",

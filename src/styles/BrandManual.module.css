@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+/* Makes the PNG fill most of the screen but not edge-to-edge */
+.brandManual {
+  width: min(95%, 1200px); /* caps at 1200px but shrinks on smaller screens */
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
